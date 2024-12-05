@@ -1,0 +1,77 @@
+<header class="position-fixed top-0 w-100 bg-white bg-opacity-90 shadow-sm z-3">
+    <div class="container py-3 d-flex justify-content-between align-items-center">
+      <h1 class="h3 fw-bold mb-0">EventoElegante</h1>
+      <nav class="d-none d-md-block">
+        <ul class="nav">
+          <li class="nav-item"><a href="/events" class="nav-link text-black">Eventos</a></li>
+          <li class="nav-item"><a href="/organizers" class="nav-link text-black">Organizadores</a></li>
+          <li class="nav-item"><a href="/venues" class="nav-link text-black">Lugares</a></li>
+          @if (token == null) {
+
+            <li class="nav-item"><button (click)="login()" class="btn btn-outline-dark">Iniciar sesión</button></li>
+          }@else {
+            <li class="nav-item"><button (click)="logout()" class="btn btn-outline-dark">Cerrar sesión</button></li>
+          }
+        </ul>
+      </nav>
+      <button class="btn btn-outline-dark d-md-none" data-bs-toggle="collapse" data-bs-target="#mobileMenu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <div class="collapse bg-white border-top border-dark p-3 d-md-none" id="mobileMenu">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a href="/events" class="nav-link">Eventos</a></li>
+        <li class="nav-item"><a href="/organizers" class="nav-link">Organizadores</a></li>
+        <li class="nav-item"><a href="/venues" class="nav-link">Lugares</a></li>
+        @if (token == null){
+
+          <li class="nav-item"><a (click)="login()" class="btn btn-outline-dark w-100 mt-2">Iniciar sesión</a></li>
+        }@else {
+          <li class="nav-item"><button (click)="logout()" class="btn btn-outline-dark">Cerrar sesión</button></li>
+        }
+      </ul>
+    </div>
+  </header>
+
+  <main class="container pt-5">
+    <section class="text-center mt-5">
+      <h2 class="display-4 fw-bold">Descubre Experiencias Elegantes</h2>
+      <div class="mt-4 position-relative">
+        <input type="text" class="form-control rounded-pill px-5 py-3 border-dark" placeholder="Busca tu próximo evento...">
+        <i class="fas fa-search position-absolute top-50 start-3 translate-middle-y text-muted"></i>
+        <button class="btn btn-dark rounded-pill position-absolute top-50 end-3 translate-middle-y">Buscar</button>
+      </div>
+    </section>
+
+    <section class="mt-5">
+      <h3 class="h4 text-center fw-bold mb-4">Eventos Destacados</h3>
+      <div class="row g-4">
+        @for (evento of eventos; track $index) {
+            <div class="col-md-4">
+                <div class="card border-dark event-card">
+                  <div class="card-header bg-light text-center fw-bold">Evento 1</div>
+                  <div class="card-body">
+                    <h5 class="card-title">{{evento.nombre}}</h5>
+                    <p><i class="far fa-calendar-alt"></i>{{evento.fecha}}</p>
+                    <p><i class="fas fa-map-marker-alt"></i>Capacidad: {{evento.capacidad}}</p>
+                    <p><i class="fas fa-user"></i>{{evento.descripcion}}</p>
+                    <a (click)="subscribe(evento.id)" class="btn btn-dark w-100">Reservar Ahora</a>
+                  </div>
+                </div>
+            </div>
+        }
+        
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-dark text-white py-4 mt-5">
+    <div class="container text-center">
+      <p>&copy; 2023 EventoElegante. Todos los derechos reservados.</p>
+      <div class="mt-3">
+        <a href="/about" class="text-white text-decoration-none mx-2">Sobre Nosotros</a>
+        <a href="/contact" class="text-white text-decoration-none mx-2">Contacto</a>
+        <a href="/privacy" class="text-white text-decoration-none mx-2">Privacidad</a>
+      </div>
+    </div>
+  </footer>

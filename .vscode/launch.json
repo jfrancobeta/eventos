@@ -1,0 +1,78 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-EventosServicioApplication<eventos-servicio>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.jfranco.eventos.servicios.eventos_servicio.EventosServicioApplication",
+            "projectName": "eventos-servicio",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=53607 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=eventos-servicio"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-OauthServicioApplication<oauth-servicio>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.jfranco.evento.servicio.oauth_servicio.OauthServicioApplication",
+            "projectName": "oauth-servicio",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=55302 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=oauth-servicio"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-UsuarioServicioApplication<usuario-servicio>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.jfranco.evento.servicio.usuario_servicio.UsuarioServicioApplication",
+            "projectName": "usuario-servicio",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-EurekaServicioApplication<eureka-servicio>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.jfranco.eventos.servicios.eureka_servicio.EurekaServicioApplication",
+            "projectName": "eureka-servicio",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=50972 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=eureka-servicio"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-GatewayServicioApplication<gateway-servicio>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.jfranco.eventos.servicios.gateway_servicio.GatewayServicioApplication",
+            "projectName": "gateway-servicio",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=50977 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=gateway-servicio"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-AsistentesServicioApplication<asistentes-servicio>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.jfranco.evento.servicio.asistentes_servicio.AsistentesServicioApplication",
+            "projectName": "asistentes-servicio",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-NotificacionesServicioApplication<notificaciones-servicio>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.jfranco.eventos.servicio.notificaciones_servicio.NotificacionesServicioApplication",
+            "projectName": "notificaciones-servicio",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

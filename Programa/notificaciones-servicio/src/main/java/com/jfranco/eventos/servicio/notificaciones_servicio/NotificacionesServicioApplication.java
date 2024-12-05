@@ -1,0 +1,13 @@
+package com.jfranco.eventos.servicio.notificaciones_servicio;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class NotificacionesServicioApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(NotificacionesServicioApplication.class, args);
+	}
+
+}

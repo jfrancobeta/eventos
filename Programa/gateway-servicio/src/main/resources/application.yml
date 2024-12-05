@@ -1,0 +1,57 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "http://localhost:9100"
+      client:
+        registration:
+          client-app:
+            provider: spring
+            client-id: client-app
+            client-secret: 12345
+            authorization-grant-type: authorization_code
+            redirect-uri: "http://127.0.0.1:8091/authorized"
+            scope: 
+             - openid
+             - profile
+             - read
+             - write
+            client-name: client-app
+        provider:
+          spring:
+           issuer-uri: "http://localhost:9100"
+  cloud:
+    gateway:
+      routes:
+      - id: asistentes-servicio
+        uri: lb://asistentes-servicio
+        predicates:
+         - Path=/api/asistentes/**
+        filters:
+         - StripPrefix=2
+      - id: eventos-servicio
+        uri: lb://eventos-servicio
+        predicates:
+         - Path=/api/eventos/**
+        filters:
+         - StripPrefix=2
+      - id: usuario-servicio
+        uri: lb://usuario-servicio
+        predicates:
+         - Path=/api/usuario/**
+        filters:
+         - StripPrefix=2
+      - id: notificaciones-servicio
+        uri: lb://notificaciones-servicio
+        predicates:
+         - Path=/api/notificaciones/**
+        filters:
+         - StripPrefix=2
+      - id: oauth-servicio
+        uri: lb://oauth-servicio
+        predicates:
+         - Path=/api/security/**
+        filters:
+         - StripPrefix=2
+      
