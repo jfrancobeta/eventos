@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Asistente } from '../models/Asistente';
+import { AsistenteDto } from '../models/AsistenteDto';
 
 @Injectable({
   providedIn: 'root'
@@ -15,5 +16,14 @@ export class AsistentesService {
   crear(asistente: Asistente): Observable<Asistente>{
     console.log(asistente)
     return this.http.post<Asistente>(this.url + "crear",asistente)
+  }
+
+  listar(): Observable<AsistenteDto[]>{
+    return this.http.get<AsistenteDto[]>(this.url + "listarid") 
+  }
+
+
+  delete(id:number): Observable<void>{
+    return this.http.delete<void>(this.url + "eliminar/" + id)
   }
 }

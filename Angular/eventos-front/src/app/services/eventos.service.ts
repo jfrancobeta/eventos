@@ -20,4 +20,8 @@ export class EventosService {
   findAll(): Observable<Evento[]>{
     return this.http.get<Evento[]>(this.url + "listar");
   }
+
+  crear(evento: Evento): Observable<Evento>{
+    return this.http.post<Evento>(this.url + "crear", evento)
+  }
 }

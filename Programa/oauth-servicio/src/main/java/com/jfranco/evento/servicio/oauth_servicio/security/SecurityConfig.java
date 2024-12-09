@@ -20,6 +20,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import com.jfranco.evento.servicio.oauth_servicio.models.Usuario;
+import com.jfranco.evento.servicio.oauth_servicio.services.UsuarioService;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
@@ -58,6 +61,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 public class SecurityConfig {
     private Logger log = LoggerFactory.getLogger(SecurityConfig.class);
+
 	@Autowired
 	private UserDetailsService userDetailsService;
 
@@ -65,6 +69,10 @@ public class SecurityConfig {
 	protected PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder(); 
 	 }
+
+	 @Autowired
+	 private UsuarioService usuarioService;
+
 
 	
 
@@ -156,6 +164,9 @@ public class SecurityConfig {
 				.scope("write")
 				.scope(OidcScopes.OPENID)//roles generar el token
 				.scope(OidcScopes.PROFILE)
+				.clientSettings(ClientSettings.builder()
+					.requireAuthorizationConsent(false) // Skip consent for trusted clients
+					.build())
 				.tokenSettings(TokenSettings
 						.builder()
 						.accessTokenTimeToLive(Duration.ofMinutes(60))
@@ -209,8 +220,10 @@ public class SecurityConfig {
 			if(context.getTokenType().getValue() == OAuth2TokenType.ACCESS_TOKEN.getValue()){
 				Authentication principal = context.getPrincipal();
 				log.info("error " + principal.getAuthorities());
+				String username = principal.getName();
+				Usuario user = usuarioService.findByUsername(username);
 				context.getClaims()
-						.claim("data", "data adicional")
+						.claim("data", user.getId())
 						.claim("roles",  principal.getAuthorities()
 								.stream()
 								.map(GrantedAuthority::getAuthority)

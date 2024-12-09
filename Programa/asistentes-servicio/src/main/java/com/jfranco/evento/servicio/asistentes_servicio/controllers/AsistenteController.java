@@ -15,7 +15,9 @@ import com.jfranco.evento.servicio.asistentes_servicio.models.services.IEventoSe
 import com.jfranco.evento.servicio.asistentes_servicio.models.services.INotificacionService;
 import com.jfranco.evento.servicio.asistentes_servicio.models.services.IUsuarioService;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -41,6 +43,14 @@ public class AsistenteController {
     public ResponseEntity<?> findAll() {
         return ResponseEntity.ok(asistenteService.findAll());
     }
+    @GetMapping("/listarid")
+    public ResponseEntity<?> findAll(@RequestHeader(name = "X-Username") String username) {
+        Usuario usuario = usuarioService.findByUsername(username);
+        if(usuario != null){
+            return ResponseEntity.ok(asistenteService.findAllbyUsername(usuario.getId()));
+        }
+        return ResponseEntity.badRequest().build();
+    }
 
     @PostMapping("/crear")
     public ResponseEntity<?> save(@RequestHeader(name = "X-Username") String username,@RequestBody Asistente asistente) {
@@ -62,6 +72,17 @@ public class AsistenteController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         
+    }
+
+
+    @DeleteMapping("/eliminar/{id}")
+    public ResponseEntity<?> eliminar(@PathVariable Long id){
+        Asistente asistente = asistenteService.findById(id);
+        if(asistente != null){
+            asistenteService.deleteById(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.badRequest().build();
     }
     
     

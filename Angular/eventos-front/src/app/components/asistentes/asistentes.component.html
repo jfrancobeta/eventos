@@ -1,0 +1,40 @@
+<div class="container my-4">
+  <h1 class="text-center">Mis Eventos</h1>
+  @if (misAsistencias.length == 0) {
+    <div class="alert alert-warning my-4">
+      No tienes Reservas
+    </div>
+  }
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <div class="col" *ngFor="let asistente of misAsistencias">
+      <div class="card border-dark">
+        <div class="card-body">
+          <h5 class="card-title">{{asistente.evento.nombre}}</h5>
+          <p class="card-text">{{asistente.evento.descripcion}}</p>
+
+          <ul class="list-unstyled">
+            <li class="d-flex align-items-center">
+              <i class="bi bi-calendar-day me-2"></i>
+              <span>{{asistente.date}}</span>
+            </li>
+            <li class="d-flex align-items-center">
+              <i class="bi bi-clock me-2"></i>
+              <span>time</span>
+            </li>
+            <li class="d-flex align-items-center">
+              <i class="bi bi-map-pin me-2"></i>
+              <span>{{asistente.evento.lugar}}</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card-footer d-flex justify-content-between">
+          <button (click)="maps(asistente.evento.lugar)" class="btn btn-outline-dark">Ver detalles</button>
+          <button (click)="eliminar(asistente.id)" class="btn btn-dark">Cancelar inscripción</button>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+</div>

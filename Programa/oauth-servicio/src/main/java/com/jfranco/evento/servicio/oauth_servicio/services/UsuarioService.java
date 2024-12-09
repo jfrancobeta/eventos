@@ -20,8 +20,8 @@ public class UsuarioService implements IUsuarioService, UserDetailsService{
 
     @Autowired
     private UsuarioFeingClient client;
+    
     @Override
-
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Usuario usuario = client.findByUsername(username);
         if(usuario == null){
