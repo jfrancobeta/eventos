@@ -65,6 +65,7 @@ public class EventoController {
             eventoExistente.setDescripcion(entity.getDescripcion());
             eventoExistente.setLugar(entity.getLugar());
             eventoExistente.setNombre(entity.getNombre());
+            eventoExistente.setFecha(entity.getFecha());
             return ResponseEntity.status(HttpStatus.CREATED).body(eventoService.save(eventoExistente));
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

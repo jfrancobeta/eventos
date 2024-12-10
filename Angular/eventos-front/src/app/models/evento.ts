@@ -3,6 +3,7 @@ export class Evento {
     nombre!: string;
     descripcion!: string;
     fecha!: Date;
+    hora!: string
     usuario!: number;
     lugar!: string;
     capacidad!: number;

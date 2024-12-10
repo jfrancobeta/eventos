@@ -15,7 +15,7 @@
         @for (evento of eventos; track $index) {
             <div class="col-md-4">
                 <div class="card border-dark event-card">
-                  <div class="card-header bg-light text-center fw-bold">Evento 1</div>
+                  <div class="card-header bg-light text-center fw-bold">Evento</div>
                   <div class="card-body">
                     <h5 class="card-title">{{evento.nombre}}</h5>
                     <p><i class="far fa-calendar-alt"></i>{{formatDate(evento.fecha)}}</p>
@@ -41,17 +41,17 @@
                <div class="card-header bg-light text-center fw-bold">{{mievento.nombre}}</div>
                <div class="card-body">
                  <p class="mb-2">
-                   <i class="far fa-calendar-alt me-2"></i>{{mievento.fecha}}
+                   <i class="far fa-calendar-alt me-2"></i>{{formatDate(mievento.fecha)}}
                  </p>
                  <p class="mb-2">
-                   <i class="far fa-clock me-2"></i>fecha
+                   <i class="far fa-clock me-2"></i>Capacidad: {{mievento.capacidad}}
                  </p>
                  <p class="mb-3">
                    <i class="fas fa-map-marker-alt me-2"></i>{{mievento.lugar}}
                  </p>
                  <div class="d-flex gap-2">
-                   <button class="btn btn-dark w-50">Editar</button>
-                   <button class="btn btn-outline-dark w-50">Ver Detalles</button>
+                   <button (click)="editar(mievento)" class="btn btn-dark w-50">Editar</button>
+                   <button (click)="eliminar(mievento.id)"  class="btn btn-outline-danger w-50">Eliminar</button>
                  </div>
                </div>
              </div>
@@ -76,11 +76,11 @@
   </footer>
 
   <!-- Modal para Crear Evento -->
-<div class="modal fade" id="createEventModal" tabindex="-1" aria-labelledby="createEventModalLabel" aria-hidden="true">
+<div class="modal fade" id="createEventModal" #createEventModal  tabindex="-1" aria-labelledby="createEventModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="createEventModalLabel">Crear Nuevo Evento</h5>
+        <h5 class="modal-title" id="createEventModalLabel">{{evento.id > 0 ? 'Editar Evento': 'Crear Nuevo Evento'}}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form (ngSubmit)="onSubmit(eventoForm)" id="createEventForm" #eventoForm='ngForm'>
@@ -94,12 +94,16 @@
             <textarea [(ngModel)]="evento.descripcion" class="form-control" id="eventDescription" name="description" rows="3" required></textarea>
           </div>
           <div class="mb-3">
+            <label for="eventTime" class="form-label">Hora</label>
+            <input [(ngModel)]="evento.hora" type="time" class="form-control" id="eventTime" name="time" required>
+          </div>
+          <div class="mb-3">
             <label for="eventDate" class="form-label">Fecha</label>
             <input [(ngModel)]="evento.fecha" type="date" class="form-control" id="eventDate" name="date" required>
           </div>
           <div class="mb-3">
-            <label for="eventTime" class="form-label">Hora</label>
-            <input type="time" class="form-control" id="eventTime" name="time" required>
+            <label for="eventTime" class="form-label">Capacidad</label>
+            <input [(ngModel)]="evento.capacidad" type="number" class="form-control" id="eventTime" name="time" required>
           </div>
           <div class="mb-3">
             <label for="eventVenue" class="form-label">Lugar</label>
@@ -108,7 +112,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-dark" [disabled]="eventoForm.invalid">Guardar Evento</button>
+          <button type="submit" class="btn btn-dark" [disabled]="eventoForm.invalid">{{evento.id > 0 ? 'Editar': 'Guardar'}}</button>
         </div>
       </form>
     </div>

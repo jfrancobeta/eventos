@@ -24,4 +24,12 @@ export class EventosService {
   crear(evento: Evento): Observable<Evento>{
     return this.http.post<Evento>(this.url + "crear", evento)
   }
+
+  eliminar(id:number): Observable<void>{
+    return this.http.delete<void>(this.url + "eliminar/" + id)
+  }
+
+  editar(evento:Evento):Observable<Evento>{
+    return this.http.put<Evento>(this.url + "crear/" + evento.id , evento)
+  }
 }

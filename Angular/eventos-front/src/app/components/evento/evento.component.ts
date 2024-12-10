@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, viewChild } from '@angular/core';
 import { Evento } from '../../models/evento';
 import { EventosService } from '../../services/eventos.service';
 import { OAuthModule, OAuthService } from 'angular-oauth2-oidc';
@@ -12,6 +12,7 @@ import { DataService } from '../../services/data.service';
 import { DatePipe } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 
+declare var bootstrap: any;
 @Component({
   selector: 'app-evento',
   standalone: true,
@@ -26,7 +27,7 @@ export class EventoComponent implements OnInit {
   token: string | null = null;
   asistente!: Asistente;
   userId: number | null = null;
-  evento!: Evento;
+  evento!: Evento ;
 
   constructor(private serviceEventos: EventosService,
     private data:DataService,
@@ -51,19 +52,43 @@ export class EventoComponent implements OnInit {
   }
 
   onSubmit(eventoForm: NgForm){
+    
     if(eventoForm.valid){
-      this.eventoService.crear(this.evento).subscribe({ 
-        next: (eventoCreated) => {
-        this.eventos = [... this.eventos, {... eventoCreated}]
-        Swal.fire({
-          title: "Good job!",
-          text: "User Created",
-          icon: "success"
-        });
-      },
-      error: (err) => {
-        console.log(err)
-      }})
+      const fechaCompleta = `${this.evento.fecha} ${this.evento.hora}`;
+      const EventoCompleto:Evento = {...this.evento, fecha: new Date(fechaCompleta)}
+      console.log(EventoCompleto)
+      if(this.evento.id > 0){
+      this.serviceEventos.editar(EventoCompleto).subscribe({
+        next: (eventoUpadte) => {
+          this.eventos = this.eventos.map(u => {
+            if(u.id == eventoUpadte.id){
+              return {... eventoUpadte}
+            }
+            return u
+          })
+          Swal.fire({
+            title: "Buen trabajo",
+            text: "Evento Actualizado",
+            icon: "success"
+          });
+        }
+      })
+      }else{
+        
+        this.eventoService.crear(EventoCompleto).subscribe({ 
+          next: (eventoCreated) => {
+          this.eventos = [... this.eventos, {... eventoCreated}]
+          Swal.fire({
+            title: "Buen Trabajo!",
+            text: "Evento Creado",
+            icon: "success"
+          });
+        },
+        error: (err) => {
+          console.log(err)
+        }})
+      }
+      
       
     }
     eventoForm.reset()
@@ -111,6 +136,59 @@ export class EventoComponent implements OnInit {
         }
       })
     }
+  }
+
+  eliminar(id:number){
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.eventoService.eliminar(id).subscribe( () => {
+          this.miseventos = this.miseventos.filter(evento => evento.id != id)
+          this.eventos = this.eventos.filter(evento => evento.id != id)
+        })
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+      }
+    });
+    
+  }
+
+  
+  @ViewChild('createEventModal') modalElement: ElementRef | undefined;
+  editar(evento:Evento){
+    this.evento = new Evento()
+    
+    const fechaValida = new Date(evento.fecha);
+    const fechaAux = fechaValida.toISOString().split('T')[0]; // Extrae YYYY-MM-DD
+    const horaFormateada = fechaValida.toLocaleTimeString('en-US', { 
+      hour: '2-digit', 
+      minute: '2-digit', 
+      hour12: false 
+    }); // Extrae HH:mm
+    
+    
+    this.evento = {
+      ...evento,
+      fecha: new Date(fechaAux),
+      hora: horaFormateada
+    };
+
+    
+    const modal = new bootstrap.Modal(this.modalElement?.nativeElement);
+    modal.show();
+    
+    console.log(this.evento.hora)
+    
   }
 
   
