@@ -1,0 +1,58 @@
+<!-- Header -->
+<header class="bg-white shadow-sm">
+    <div class="container py-4 d-flex justify-content-between align-items-center">
+      <a href="/" class="text-dark text-decoration-none d-flex align-items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left me-2" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M15 8a.5.5 0 0 1-.5.5H3.707l3.147 3.146a.5.5 0 0 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L3.707 7.5H14.5A.5.5 0 0 1 15 8z"/>
+        </svg>
+        Volver al inicio
+      </a>
+      <h1 class="h3 fw-bold">EventoElegante</h1>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="flex-grow-1 d-flex align-items-center justify-content-center py-5">
+    <div class="container max-w-md">
+      <div class="text-center mb-4">
+        <h2 class="fw-bold">Crea tu cuenta</h2>
+        <p class="text-muted">¿Ya tienes una cuenta? <a href="/login" class="text-dark fw-bold">Inicia sesión</a></p>
+      </div>
+      <form (ngSubmit)="crear(usuarioForm)" #usuarioForm='ngForm' name="userform">
+        <div class="mb-3">
+          <label for="username" class="form-label">Nombre de usuario</label>
+          <input [(ngModel)]="user.username"  name="username" type="text" class="form-control" id="username" placeholder="Nombre de usuario" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña</label>
+          <input [(ngModel)]="user.password" name="password" type="password" class="form-control" id="password" placeholder="Contraseña" required>
+        </div>
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input [(ngModel)]="user.nombre" name="nombre" type="text" class="form-control" id="nombre" placeholder="Nombre" required>
+        </div>
+        <div class="mb-3">
+          <label for="apellido" class="form-label">Apellido</label>
+          <input [(ngModel)]="user.apellido" name="apellido"  type="text" class="form-control" id="apellido" placeholder="Apellido" required>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Correo electrónico</label>
+          <input [(ngModel)]="user.email"  name="email" type="email" class="form-control" id="email" placeholder="Correo electrónico" required>
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-dark">Registrarse</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+      <p class="mb-0">&copy; 2023 EventoElegante. Todos los derechos reservados.</p>
+      <nav>
+        <a href="/privacy" class="text-white text-decoration-none me-3">Privacidad</a>
+        <a href="/terms" class="text-white text-decoration-none">Términos</a>
+      </nav>
+    </div>
+  </footer>

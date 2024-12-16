@@ -20,6 +20,14 @@ public class jwtAuthenticationFilter implements GlobalFilter{
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        // Obtener la ruta de la solicitud
+        String path = exchange.getRequest().getURI().getPath();
+        // Verificar si la ruta no requiere autenticación
+        if (path.startsWith("/crear")) {
+            // Si la ruta es "/api/usuario/listar", omitir la validación del token
+            
+            return chain.filter(exchange);
+        }
         String token = exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
 
         if (token == null || !token.startsWith("Bearer ")) {

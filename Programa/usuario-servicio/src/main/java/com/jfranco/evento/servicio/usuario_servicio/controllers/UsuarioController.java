@@ -1,9 +1,11 @@
 package com.jfranco.evento.servicio.usuario_servicio.controllers;
 
 
+import org.aspectj.internal.lang.annotation.ajcITD;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,8 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Arrays;
 import java.util.Optional;
 
+import com.jfranco.evento.servicio.usuario_servicio.models.entity.Role;
 import com.jfranco.evento.servicio.usuario_servicio.models.entity.Usuario;
 import com.jfranco.evento.servicio.usuario_servicio.models.services.IUsuarioService;
 
@@ -21,6 +26,10 @@ public class UsuarioController {
     
     @Autowired
     private IUsuarioService usuarioService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
 
     @GetMapping("/buscar/{username}")
     public ResponseEntity<?> findByUsername(@PathVariable String username){
@@ -51,8 +60,11 @@ public class UsuarioController {
 
     @PostMapping("/crear")
     public ResponseEntity<?> crearEvento(@RequestBody Usuario cuerpo){
-        Usuario usuario = usuarioService.save(cuerpo);
-        return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
+        Usuario usuario = cuerpo;
+        usuario.setRoles(Arrays.asList(new Role(1L,"ROLE_USER")));
+        usuario.setEnabled(true);
+        usuario.setPassword(passwordEncoder.encode(cuerpo.getPassword()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.usuarioService.save(usuario));
     }
 
     @PutMapping("/crear/{id}")

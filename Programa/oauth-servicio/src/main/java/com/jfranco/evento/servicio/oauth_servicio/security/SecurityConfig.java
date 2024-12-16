@@ -157,7 +157,7 @@ public class SecurityConfig {
 				.clientAuthenticationMethod(ClientAuthenticationMethod.NONE)
 				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
 				.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-				.redirectUri("http://localhost:4200")
+				.redirectUri("http://localhost:4200/home")
 				//.redirectUri("http://127.0.0.1:8091/authorized")
 				.postLogoutRedirectUri("http://localhost:4200")//ruta default de salida o log out
 				.scope("read")

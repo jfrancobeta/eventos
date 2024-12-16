@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { NavComponent} from "./components/nav/nav.component";
 
 @Component({
@@ -10,6 +10,22 @@ import { NavComponent} from "./components/nav/nav.component";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'eventos-front';
+
+  
+
+  constructor(){
+    
+  }
+  ngOnInit(): void {
+    
+  }
+  
+
+  
+  
+
+ 
+  
 }

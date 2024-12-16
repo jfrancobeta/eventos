@@ -66,6 +66,13 @@ export class EventoComponent implements OnInit {
             }
             return u
           })
+          this.miseventos = this.miseventos.map(u => {
+            if(u.id == eventoUpadte.id){
+              return {... eventoUpadte}
+            }
+            return u
+          })
+          
           Swal.fire({
             title: "Buen trabajo",
             text: "Evento Actualizado",
@@ -78,6 +85,7 @@ export class EventoComponent implements OnInit {
         this.eventoService.crear(EventoCompleto).subscribe({ 
           next: (eventoCreated) => {
           this.eventos = [... this.eventos, {... eventoCreated}]
+          this.miseventos = [... this.miseventos, {... eventoCreated}]
           Swal.fire({
             title: "Buen Trabajo!",
             text: "Evento Creado",

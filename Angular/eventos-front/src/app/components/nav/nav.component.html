@@ -1,39 +1,69 @@
-<header class="position-fixed top-0 w-100 bg-white bg-opacity-90 shadow-sm z-3">
-    <div class="container py-3 d-flex justify-content-between align-items-center">
-      <h1 class="h3 fw-bold mb-0">Eventos</h1>
-      <nav class="d-none d-md-block">
-        <ul class="nav">
-          <li class="nav-item"><a  [routerLink]="['/eventos']" class="nav-link text-black">Inscripciones</a></li>
-          <li class="nav-item"><button style="cursor: pointer;" (click)="navigateToEventos()" class="nav-link text-black">Eventos</button></li>
-          <li class="nav-item"><a href="/venues" class="nav-link text-black">Lugares</a></li>
-          
-          <button class="btn btn-dark mx-2" data-bs-toggle="modal" data-bs-target="#createEventModal">Crear Nuevo Evento</button>
-
-
-          @if (token == null) {
-
-            <li class="nav-item"><button (click)="login()" class="btn btn-outline-dark">Iniciar sesión</button></li>
+@if (this.url == "/" || this.url.includes('/?')) {
+    <header class="bg-white shadow-sm">
+      <div class="container py-4 d-flex justify-content-between align-items-center">
+        <nav class="w-100 d-flex justify-content-between">
+          <!-- Menú a la izquierda -->
+          <ul class="nav">
+            <li class="nav-item">
+              <a href="/" class="nav-link text-black hover-text-gray">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a [routerLink]="'/nosotros'" class="nav-link text-black hover-text-gray">Sobre Nosotros</a>
+            </li>
+            <li class="nav-item">
+              <a [routerLink]="'/contacto'" class="nav-link text-black hover-text-gray">Contacto</a>
+            </li>
+          </ul>
+          <!-- Botones a la derecha -->
+  
+          @if (token != null) {
+            <label for="">Username</label>
+            <button class="btn btn-dark" (click)="logout()">Cerrar Sesion</button>
           }@else {
+            <div class="d-flex">
+              <button class="btn btn-outline-dark me-2" (click)="login()">Iniciar Sesión</button>
+              <button class="btn btn-dark" [routerLink]="'/usuariof'">Crear Cuenta</button>
+            </div>
+          }
+        </nav>
+      </div>
+    </header>
+  }@else if (url == "/usuariof" || url == "/nosotros" || url == "/contacto") {
+
+  }@else {
+    <header class="position-fixed top-0 w-100 bg-white bg-opacity-90 shadow-sm z-3">
+      <div class="container py-3 d-flex justify-content-between align-items-center">
+        <h1 class="h3 fw-bold mb-0">Eventos</h1>
+        <nav class="d-none d-md-block">
+          <ul class="nav">
+            <li class="nav-item"><a  [routerLink]="['/eventos']" class="nav-link text-black">Inscripciones</a></li>
+            <li class="nav-item"><button style="cursor: pointer;" (click)="navigateToEventos()" class="nav-link text-black">Eventos</button></li>
+            <li class="nav-item"><a href="/venues" class="nav-link text-black">Lugares</a></li>
+            
+            <button class="btn btn-dark mx-2" data-bs-toggle="modal" data-bs-target="#createEventModal">Crear Nuevo Evento</button>
+  
+  
+            @if (token != null){
+  
+              <li class="nav-item"><button (click)="logout()" class="btn btn-outline-dark">Cerrar sesión</button></li>
+            }
+          </ul>
+        </nav>
+        <button class="btn btn-outline-dark d-md-none" data-bs-toggle="collapse" data-bs-target="#mobileMenu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+      <div class="collapse bg-white border-top border-dark p-3 d-md-none" id="mobileMenu">
+        <ul class="nav flex-column">
+          <li class="nav-item"><button  [routerLink]="['/eventos']" class="nav-link">Inscripciones</button></li>
+          <li class="nav-item"><a style="cursor: pointer;" (click)="navigateToEventos()" class="nav-link">Eventos</a></li>
+          <li class="nav-item"><a href="/venues" class="nav-link">Lugares</a></li>
+          <button class="btn btn-dark my-2" data-bs-toggle="modal" data-bs-target="#createEventModal">Crear Nuevo Evento</button>
+           @if (token != null){
+  
             <li class="nav-item"><button (click)="logout()" class="btn btn-outline-dark">Cerrar sesión</button></li>
           }
         </ul>
-      </nav>
-      <button class="btn btn-outline-dark d-md-none" data-bs-toggle="collapse" data-bs-target="#mobileMenu">
-        <i class="fas fa-bars"></i>
-      </button>
-    </div>
-    <div class="collapse bg-white border-top border-dark p-3 d-md-none" id="mobileMenu">
-      <ul class="nav flex-column">
-        <li class="nav-item"><button  [routerLink]="['/eventos']" class="nav-link">Inscripciones</button></li>
-        <li class="nav-item"><a style="cursor: pointer;" (click)="navigateToEventos()" class="nav-link">Eventos</a></li>
-        <li class="nav-item"><a href="/venues" class="nav-link">Lugares</a></li>
-        <button class="btn btn-dark my-2" data-bs-toggle="modal" data-bs-target="#createEventModal">Crear Nuevo Evento</button>
-        @if (token == null){
-
-          <li class="nav-item"><a (click)="login()" class="btn btn-outline-dark w-100 mt-2">Iniciar sesión</a></li>
-        }@else {
-          <li class="nav-item"><button (click)="logout()" class="btn btn-outline-dark">Cerrar sesión</button></li>
-        }
-      </ul>
-    </div>
-  </header>
+      </div>
+    </header>
+  }

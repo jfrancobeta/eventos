@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto - EventoElegante</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="min-vh-100 d-flex flex-column">
+    
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+      <div class="container py-4 d-flex justify-content-between align-items-center">
+        <a href="/" class="d-flex align-items-center text-black text-decoration-none hover-text-muted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left mr-2" viewBox="0 0 16 16">
+            <path d="M10.707 12.707a1 1 0 0 1 0-1.414L13.586 8H2a1 1 0 0 1 0-2h11.586l-2.879-2.879a1 1 0 1 1 1.414-1.414l4 4a1 1 0 0 1 0 1.414l-4 4a1 1 0 0 1-1.414 0z"/>
+          </svg>
+          Volver al inicio
+        </a>
+        <h1 class="h3">EventoElegante</h1>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow py-12 px-4 sm:px-6 lg:px-8">
+      <div class="container max-w-3xl">
+        <h2 class="h4 text-center mb-8">Contáctanos</h2>
+
+        <p class="text-lg mb-8 text-center">
+          ¿Tienes alguna pregunta o comentario? Nos encantaría escucharte. 
+          Completa el formulario a continuación y nos pondremos en contacto contigo pronto.
+        </p>
+
+        <form class="space-y-6">
+          <div>
+            <label for="name" class="form-label">Nombre</label>
+            <input 
+              type="text" 
+              id="name" 
+              class="form-control" 
+              name="name" 
+              required 
+            />
+          </div>
+          <div>
+            <label for="email" class="form-label">Correo Electrónico</label>
+            <input 
+              type="email" 
+              id="email" 
+              class="form-control" 
+              name="email" 
+              required 
+            />
+          </div>
+          <div>
+            <label for="message" class="form-label">Mensaje</label>
+            <textarea 
+              id="message" 
+              class="form-control" 
+              name="message" 
+              required 
+              rows="6"
+            ></textarea>
+          </div>
+          <button type="submit" class="btn btn-dark w-100">
+            Enviar Mensaje
+          </button>
+        </form>
+
+        <div class="mt-12">
+          <h3 class="h5 mb-4">Información de Contacto</h3>
+          <p><strong>Correo:</strong> infoeventoelegante.com</p>
+          <p><strong>Teléfono:</strong> +1 (123) 456-7890</p>
+          <p><strong>Dirección:</strong> 123 Calle Principal, Ciudad Evento, EV 12345</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+      <div class="container d-flex justify-content-between align-items-center">
+        <p>&copy; 2023 EventoElegante. Todos los derechos reservados.</p>
+        <nav>
+          <ul class="nav">
+            <li class="nav-item"><a href="/privacy" class="nav-link text-white">Privacidad</a></li>
+            <li class="nav-item"><a href="/terms" class="nav-link text-white">Términos</a></li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+
+  </div>
+
