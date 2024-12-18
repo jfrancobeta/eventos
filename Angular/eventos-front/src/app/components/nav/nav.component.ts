@@ -27,6 +27,8 @@ export class NavComponent implements OnInit {
             this.token = this.oauthService.getAccessToken();
             console.log('Token válido detectado:', this.token);
             this.data.tokenEvent.emit(this.token)
+          }else{
+            this.router.navigate(['/'])
           }
         });
   

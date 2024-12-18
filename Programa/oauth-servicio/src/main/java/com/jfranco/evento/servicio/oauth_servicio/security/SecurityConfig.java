@@ -159,7 +159,7 @@ public class SecurityConfig {
 				.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
 				.redirectUri("http://localhost:4200/home")
 				//.redirectUri("http://127.0.0.1:8091/authorized")
-				.postLogoutRedirectUri("http://localhost:4200")//ruta default de salida o log out
+				.postLogoutRedirectUri("http://localhost:4200/")//ruta default de salida o log out
 				.scope("read")
 				.scope("write")
 				.scope(OidcScopes.OPENID)//roles generar el token

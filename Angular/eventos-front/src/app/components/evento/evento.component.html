@@ -26,6 +26,9 @@
                 </div>
             </div>
         }
+        @if (eventos.length == 0) {
+          <div class="alert alert-warning">No hay eventos activos</div>
+         }
         
       </div>
     </section>
@@ -58,6 +61,10 @@
            </div>
          }
 
+         @if (miseventos.length == 0) {
+          <div class="alert alert-warning">No tienes eventos creados</div>
+         }
+
         
       </div>
     </section>
@@ -83,38 +90,134 @@
         <h5 class="modal-title" id="createEventModalLabel">{{evento.id > 0 ? 'Editar Evento': 'Crear Nuevo Evento'}}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form (ngSubmit)="onSubmit(eventoForm)" id="createEventForm" #eventoForm='ngForm'>
+      <form (ngSubmit)="onSubmit(eventoForm)" id="createEventForm" #eventoForm="ngForm">
         <div class="modal-body">
+          
+          <!-- Título -->
           <div class="mb-3">
             <label for="eventTitle" class="form-label">Título</label>
-            <input [(ngModel)]="evento.nombre" type="text" class="form-control" id="eventTitle" name="title" required>
+            <input
+              [(ngModel)]="evento.nombre"
+              type="text"
+              class="form-control"
+              id="eventTitle"
+              name="title"
+              required
+              minlength="5"
+              maxlength="100"
+              #title="ngModel"
+            />
+            <div *ngIf="title.invalid && (title.dirty || title.touched)">
+              <div class="alert alert-danger" *ngIf="title.errors?.['required']">El título es requerido</div>
+              <div class="alert alert-danger" *ngIf="title.errors?.['minlength']">El título debe tener al menos 5 caracteres</div>
+              <div class="alert alert-danger" *ngIf="title.errors?.['maxlength']">El título no puede superar los 100 caracteres</div>
+            </div>
           </div>
+      
+          <!-- Descripción -->
           <div class="mb-3">
             <label for="eventDescription" class="form-label">Descripción</label>
-            <textarea [(ngModel)]="evento.descripcion" class="form-control" id="eventDescription" name="description" rows="3" required></textarea>
+            <textarea
+              [(ngModel)]="evento.descripcion"
+              class="form-control"
+              id="eventDescription"
+              name="description"
+              rows="3"
+              required
+              #description="ngModel"
+            ></textarea>
+            <div *ngIf="description.invalid && (description.dirty || description.touched)">
+              <div class="alert alert-danger" *ngIf="description.errors?.['required']">La descripción es requerida</div>
+            </div>
           </div>
+      
+          <!-- Hora -->
           <div class="mb-3">
             <label for="eventTime" class="form-label">Hora</label>
-            <input [(ngModel)]="evento.hora" type="time" class="form-control" id="eventTime" name="time" required>
+            <input
+              [(ngModel)]="evento.hora"
+              type="time"
+              class="form-control"
+              id="eventTime"
+              name="time"
+              required
+              #time="ngModel"
+            />
+            <div *ngIf="time.invalid && (time.dirty || time.touched)">
+              <div class="alert alert-danger" *ngIf="time.errors?.['required']">La hora es requerida</div>
+            </div>
           </div>
+      
+          <!-- Fecha -->
           <div class="mb-3">
             <label for="eventDate" class="form-label">Fecha</label>
-            <input [(ngModel)]="evento.fecha" type="date" class="form-control" id="eventDate" name="date" required>
+            <input
+              [(ngModel)]="evento.fecha"
+              type="date"
+              class="form-control"
+              id="eventDate"
+              name="date"
+              required
+              #date="ngModel"
+              [min]="minDate"
+            />
+            <div *ngIf="date.invalid && (date.dirty || date.touched)">
+              <div class="alert alert-danger" *ngIf="date.errors?.['required']">La fecha es requerida</div>
+              <div class="alert alert-danger" *ngIf="date.errors?.['min']">La fecha no puede ser en el pasado</div>
+            </div>
           </div>
+      
+          <!-- Capacidad -->
           <div class="mb-3">
-            <label for="eventTime" class="form-label">Capacidad</label>
-            <input [(ngModel)]="evento.capacidad" type="number" class="form-control" id="eventTime" name="time" required>
+            <label for="eventCapacity" class="form-label">Capacidad</label>
+            <input
+              [(ngModel)]="evento.capacidad"
+              type="number"
+              class="form-control"
+              id="eventCapacity"
+              name="capacity"
+              required
+              min="1"
+              max="1000"
+              #capacity="ngModel"
+            />
+            <div *ngIf="capacity.invalid && (capacity.dirty || capacity.touched)">
+              <div class="alert alert-danger" *ngIf="capacity.errors?.['required']">La capacidad es requerida</div>
+              <div class="alert alert-danger" *ngIf="capacity.errors?.['min']">La capacidad debe ser al menos 1</div>
+              <div class="alert alert-danger" *ngIf="capacity.errors?.['max']">La capacidad no puede ser mayor de 1000</div>
+            </div>
           </div>
+      
+          <!-- Lugar -->
           <div class="mb-3">
             <label for="eventVenue" class="form-label">Lugar</label>
-            <input [(ngModel)]="evento.lugar"type="text" class="form-control" id="eventVenue" name="venue" required>
+            <input
+              [(ngModel)]="evento.lugar"
+              type="text"
+              class="form-control"
+              id="eventVenue"
+              name="venue"
+              required
+              minlength="3"
+              maxlength="100"
+              #venue="ngModel"
+            />
+            <div *ngIf="venue.invalid && (venue.dirty || venue.touched)">
+              <div class="alert alert-danger" *ngIf="venue.errors?.['required']">El lugar es requerido</div>
+              <div class="alert alert-danger" *ngIf="venue.errors?.['minlength']">El lugar debe tener al menos 3 caracteres</div>
+              <div class="alert alert-danger" *ngIf="venue.errors?.['maxlength']">El lugar no puede superar los 100 caracteres</div>
+            </div>
           </div>
+      
         </div>
+        
+        <!-- Footer -->
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-dark" [disabled]="eventoForm.invalid">{{evento.id > 0 ? 'Editar': 'Guardar'}}</button>
+          <button type="submit" class="btn btn-dark" [disabled]="eventoForm.invalid">{{evento.id > 0 ? 'Editar' : 'Guardar'}}</button>
         </div>
       </form>
+      
     </div>
   </div>
 </div>

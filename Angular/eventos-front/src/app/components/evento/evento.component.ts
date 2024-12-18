@@ -9,14 +9,14 @@ import { signalSetFn } from '@angular/core/primitives/signals';
 import Swal from 'sweetalert2';
 import { RouterModule } from '@angular/router';
 import { DataService } from '../../services/data.service';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 
 declare var bootstrap: any;
 @Component({
   selector: 'app-evento',
   standalone: true,
-  imports: [RouterModule,FormsModule],
+  imports: [RouterModule,FormsModule,CommonModule],
   providers: [DatePipe],
   templateUrl: './evento.component.html'
 })
@@ -29,6 +29,7 @@ export class EventoComponent implements OnInit {
   userId: number | null = null;
   evento!: Evento ;
 
+  minDate!: string;
   constructor(private serviceEventos: EventosService,
     private data:DataService,
     private asistenteService: AsistentesService,
@@ -38,6 +39,7 @@ export class EventoComponent implements OnInit {
       this.evento = new Evento()
   }
   ngOnInit(): void {
+    this.minDate = new Date().toISOString().split('T')[0];
     this.data.tokenEvent.subscribe(token => {
       this.token = token
 

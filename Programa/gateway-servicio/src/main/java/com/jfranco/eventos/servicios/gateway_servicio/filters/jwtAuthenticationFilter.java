@@ -23,7 +23,8 @@ public class jwtAuthenticationFilter implements GlobalFilter{
         // Obtener la ruta de la solicitud
         String path = exchange.getRequest().getURI().getPath();
         // Verificar si la ruta no requiere autenticación
-        if (path.startsWith("/crear")) {
+        System.out.println(path);
+        if (path.startsWith("/crearu")) {
             // Si la ruta es "/api/usuario/listar", omitir la validación del token
             
             return chain.filter(exchange);

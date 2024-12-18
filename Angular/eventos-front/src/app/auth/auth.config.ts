@@ -8,5 +8,6 @@ export const authConfig: AuthConfig = {
   scope: 'openid profile read write',       // Scopes que deseas solicitar
   showDebugInformation: true,          // Opcional: útil para depuración
   useSilentRefresh: true,              // Para renovar tokens automáticamente
+  postLogoutRedirectUri: "http://localhost:4200/"
   
 };

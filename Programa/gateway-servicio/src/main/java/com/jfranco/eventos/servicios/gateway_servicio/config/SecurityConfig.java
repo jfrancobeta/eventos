@@ -28,7 +28,7 @@ public class SecurityConfig {
     SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http){
         http.authorizeExchange(auth -> auth
             .pathMatchers("/authorized").permitAll()
-            .pathMatchers("/api/usuario/crear").permitAll()
+            .pathMatchers("/api/usuario/crearu").permitAll()
             .pathMatchers("/api/asistentes/**").hasRole("ADMIN")
             .pathMatchers("/api/eventos/**").hasAnyRole("ADMIN","USER")
             .pathMatchers("/api/usuario/**").hasRole("ADMIN")

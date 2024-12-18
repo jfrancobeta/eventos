@@ -58,7 +58,7 @@ public class UsuarioController {
         }
     }
 
-    @PostMapping("/crear")
+    @PostMapping("/crearu")
     public ResponseEntity<?> crearEvento(@RequestBody Usuario cuerpo){
         Usuario usuario = cuerpo;
         usuario.setRoles(Arrays.asList(new Role(1L,"ROLE_USER")));

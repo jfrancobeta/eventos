@@ -18,9 +18,11 @@ export class UsuarioFormComponent {
 
 
   crear(user: NgForm){
-    this.userService.crear(this.user).subscribe(user => {
-      console.log(user)
-    })
+    if(user.valid){
+      this.userService.crear(this.user).subscribe(user => {
+        console.log(user)
+      })
+    }
   }
 
 }
