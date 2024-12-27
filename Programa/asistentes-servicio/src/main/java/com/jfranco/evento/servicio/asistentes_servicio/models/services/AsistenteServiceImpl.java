@@ -56,5 +56,10 @@ public class AsistenteServiceImpl implements IAsistenteService {
         }).collect(Collectors.toList());
        
     }
+
+    @Override
+    public List<Asistente> findAllbyEventoId(Long id) {
+        return asistenteRepository.findByEventoId(id);
+    }
     
 }

@@ -7,10 +7,11 @@ import { AsistentesService } from '../../services/asistentes.service';
 import { Asistente } from '../../models/Asistente';
 import { signalSetFn } from '@angular/core/primitives/signals';
 import Swal from 'sweetalert2';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
+import { AsistenteDto } from '../../models/AsistenteDto';
 
 declare var bootstrap: any;
 @Component({
@@ -28,13 +29,17 @@ export class EventoComponent implements OnInit {
   asistente!: Asistente;
   userId: number | null = null;
   evento!: Evento ;
+  eventosFiltrados: Evento[] = [];
+  isLoading: boolean = true;
+  inscritos: Asistente[] = [];
 
   minDate!: string;
   constructor(private serviceEventos: EventosService,
     private data:DataService,
     private asistenteService: AsistentesService,
     private eventoService: EventosService,
-    private datapipe: DatePipe
+    private datapipe: DatePipe,
+    private router: Router
   ){
       this.evento = new Evento()
   }
@@ -48,9 +53,20 @@ export class EventoComponent implements OnInit {
         this.userId = payload.data
       }
       this.findEvent()
+      this.loadInscritos();
     })
 
     
+  }
+
+  loadInscritos() {
+    this.asistenteService.listar().subscribe(asis => {
+      this.inscritos = asis.map(a => ({
+        ...a,
+        evento_id: a.evento.id,
+        usuario_id: a.usuarioId
+      }));
+    });
   }
 
   onSubmit(eventoForm: NgForm){
@@ -63,6 +79,12 @@ export class EventoComponent implements OnInit {
       this.serviceEventos.editar(EventoCompleto).subscribe({
         next: (eventoUpadte) => {
           this.eventos = this.eventos.map(u => {
+            if(u.id == eventoUpadte.id){
+              return {... eventoUpadte}
+            }
+            return u
+          })
+          this.eventosFiltrados = this.eventos.map(u => {
             if(u.id == eventoUpadte.id){
               return {... eventoUpadte}
             }
@@ -88,6 +110,7 @@ export class EventoComponent implements OnInit {
           next: (eventoCreated) => {
           this.eventos = [... this.eventos, {... eventoCreated}]
           this.miseventos = [... this.miseventos, {... eventoCreated}]
+          this.eventosFiltrados = [... this.miseventos, {... eventoCreated}]
           Swal.fire({
             title: "Buen Trabajo!",
             text: "Evento Creado",
@@ -110,11 +133,20 @@ export class EventoComponent implements OnInit {
   }
 
   public subscribe(evento: number){
+    if(this.inscritos.find(asis => asis.evento_id == evento)){
+      Swal.fire({
+        title: "Ya estas inscrito",
+        text: "No puedes inscribirte dos veces",
+        icon: "warning"
+      });
+      return
+    }
     const asistente2: Asistente = {} as Asistente;
     asistente2.evento_id = evento;
     asistente2.date = new Date();
     this.asistenteService.crear(asistente2).subscribe(asis => {
-      this.asistente = asis
+      this.inscritos = [... this.inscritos, {... asis}]
+      console.log(this.inscritos)
       const Toast = Swal.mixin({
         toast: true,
         position: "top-end",
@@ -141,9 +173,13 @@ export class EventoComponent implements OnInit {
     if(this.token != null){
       this.serviceEventos.findAll().subscribe(evento => {
         this.eventos = evento
+        this.eventosFiltrados = evento
+        this.isLoading = false;
         if(this.eventos.length > 0){
           this.miseventos = this.eventos.filter(evento => evento.usuario == this.userId)
         }
+      }, error => {
+        this.isLoading = false;
       })
     }
   }
@@ -161,6 +197,7 @@ export class EventoComponent implements OnInit {
       if (result.isConfirmed) {
         this.eventoService.eliminar(id).subscribe( () => {
           this.miseventos = this.miseventos.filter(evento => evento.id != id)
+          this.eventosFiltrados = this.eventosFiltrados.filter(evento => evento.id != id)
           this.eventos = this.eventos.filter(evento => evento.id != id)
         })
         Swal.fire({
@@ -198,6 +235,22 @@ export class EventoComponent implements OnInit {
     modal.show();
     
     console.log(this.evento.hora)
+    
+  }
+
+  buscarEvento(event: any) {
+    const query = event.target.value.toLowerCase();
+    if (query) {
+      this.eventosFiltrados = this.eventos.filter(evento => evento.nombre.toLowerCase().includes(query));
+    } else {
+      this.eventosFiltrados = this.eventos; // Restablece eventosFiltrados a todos los eventos si el campo de búsqueda está vacío
+    }
+  }
+
+
+  asistentes(id: number){
+    this.data.emitirInscrito(id);
+    this.router.navigate(['/asistentes']);
     
   }
 

@@ -11,8 +11,10 @@ public interface IAsistenteService {
     
     public List<Asistente> findAll();
 
+    
+    public List<Asistente> findAllbyEventoId(Long id);
+    
     public List<AsistenteDTO> findAllbyUsername(Long id);
-
     public Asistente findById(Long id);
 
     public Asistente save(Asistente asistente);

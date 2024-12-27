@@ -22,6 +22,9 @@ export class AsistentesService {
     return this.http.get<AsistenteDto[]>(this.url + "listarid") 
   }
 
+  listarPorEvento(id:number): Observable<Asistente[]>{
+    return this.http.get<Asistente[]>(this.url + "listarEventoId/" + id)
+  }
 
   delete(id:number): Observable<void>{
     return this.http.delete<void>(this.url + "eliminar/" + id)

@@ -4,31 +4,38 @@
     <section class="text-center mt-5">
       <h2 class="display-4 fw-bold">Descubre Experiencias</h2>
       <div class="mt-4 position-relative">
-        <input type="text" class="form-control rounded-pill px-5 py-3 border-dark" placeholder="Busca tu próximo evento...">
+        <input type="text" class="form-control rounded-pill px-5 py-3 border-dark" placeholder="Busca tu próximo evento..." (input)="buscarEvento($event)">
         <i class="fas fa-search position-absolute top-50 start-3 translate-middle-y text-muted"></i>
-        <button class="btn btn-dark rounded-pill position-absolute top-50 end-3 translate-middle-y">Buscar</button>
       </div>
     </section>
     <section class="mt-5">
       <h3 class="h4 text-center fw-bold mb-4">Eventos Destacados</h3>
       <div class="row g-4">
-        @for (evento of eventos; track $index) {
-            <div class="col-md-4">
-                <div class="card border-dark event-card">
-                  <div class="card-header bg-light text-center fw-bold">Evento</div>
-                  <div class="card-body">
-                    <h5 class="card-title">{{evento.nombre}}</h5>
-                    <p><i class="far fa-calendar-alt"></i>{{formatDate(evento.fecha)}}</p>
-                    <p><i class="fas fa-map-marker-alt"></i>Capacidad: {{evento.capacidad}}</p>
-                    <p><i class="fas fa-user"></i>{{evento.descripcion}}</p>
-                    <a (click)="subscribe(evento.id)" class="btn btn-dark w-100">Reservar Ahora</a>
-                  </div>
-                </div>
+        @if (isLoading) {
+          <div class="text-center w-100">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
             </div>
+          </div>
+        }@else {
+          @for (evento of eventosFiltrados; track $index) {
+              <div class="col-md-4">
+                  <div class="card border-dark event-card">
+                    <div class="card-header bg-light text-center fw-bold">Evento</div>
+                    <div class="card-body">
+                      <h5 class="card-title">{{evento.nombre}}</h5>
+                      <p><i class="far fa-calendar-alt"></i>{{formatDate(evento.fecha)}}</p>
+                      <p><i class="fas fa-map-marker-alt"></i>Capacidad: {{evento.capacidad}}</p>
+                      <p><i class="fas fa-user"></i>{{evento.descripcion}}</p>
+                      <a (click)="subscribe(evento.id)" class="btn btn-dark w-100">Reservar Ahora</a>
+                    </div>
+                  </div>
+              </div>
+          }
+          @if (eventosFiltrados.length == 0) {
+            <div class="alert alert-warning">No hay eventos activos</div>
+           }
         }
-        @if (eventos.length == 0) {
-          <div class="alert alert-warning">No hay eventos activos</div>
-         }
         
       </div>
     </section>
@@ -39,7 +46,7 @@
         <!-- Evento 1 -->
          @for (mievento of miseventos; track $index) {
 
-           <div class="col-md-4">
+           <div class="col-md-6">
              <div class="card border-dark">
                <div class="card-header bg-light text-center fw-bold">{{mievento.nombre}}</div>
                <div class="card-body">
@@ -52,8 +59,9 @@
                  <p class="mb-3">
                    <i class="fas fa-map-marker-alt me-2"></i>{{mievento.lugar}}
                  </p>
-                 <div class="d-flex gap-2">
+                 <div class="d-flex gap-3">
                    <button (click)="editar(mievento)" class="btn btn-dark w-50">Editar</button>
+                   <button (click)="asistentes(mievento.id)" class="btn btn-dark w-50">Asistentes</button>
                    <button (click)="eliminar(mievento.id)"  class="btn btn-outline-danger w-50">Eliminar</button>
                  </div>
                </div>

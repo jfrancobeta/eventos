@@ -14,4 +14,6 @@ public interface AsistenteRepository extends JpaRepository<Asistente,Long> {
    @Query("SELECT a FROM Asistente a WHERE a.usuario_id = :usuarioId")
     public List<Asistente> findByUsuarioId(@Param("usuarioId") Long usuarioId);
 
+    @Query("SELECT a FROM Asistente a WHERE a.evento_id = :eventoId")
+    public List<Asistente> findByEventoId(@Param("eventoId") Long eventoId);
 }

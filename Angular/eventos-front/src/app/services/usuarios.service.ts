@@ -14,9 +14,14 @@ export class UsuariosService {
 
    }
 
+   findByid(id: number): Observable<User>{
+     return this.http.get<User>(this.url + 'listar/' + id);
+   }  
 
    crear(user: User): Observable<User>{
       return this.http.post<User>(this.url + "crearu",user)
    }
+
+   
    
 }

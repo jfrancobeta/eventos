@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -51,6 +53,19 @@ public class AsistenteController {
         }
         return ResponseEntity.badRequest().build();
     }
+
+    @GetMapping("/listarEventoId/{id}")
+    public ResponseEntity<?> listarporEvento(@PathVariable Long id){ 
+        Evento evento = eventoService.findById(id);
+        System.out.println("evento" + evento);
+        if(evento != null){
+            System.out.println("evento" + asistenteService.findAllbyEventoId(id));
+            return ResponseEntity.ok(asistenteService.findAllbyEventoId(id));
+
+        }
+        return ResponseEntity.badRequest().build();
+    }
+    
 
     @PostMapping("/crear")
     public ResponseEntity<?> save(@RequestHeader(name = "X-Username") String username,@RequestBody Asistente asistente) {
