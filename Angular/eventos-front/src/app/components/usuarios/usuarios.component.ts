@@ -5,11 +5,13 @@ import { Asistente } from '../../models/Asistente';
 import { AsistenteDto } from '../../models/AsistenteDto';
 import { UsuariosService } from '../../services/usuarios.service';
 import { User } from '../../models/user';
+import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './usuarios.component.html',
 })
 export class UsuariosComponent implements OnInit {
@@ -21,7 +23,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   asis: Asistente[] = [];
-  usuarios: User[] = [];
+  usuarios: { [key: number]: User } = {};
 
   ngOnInit(): void {
     this.loadInscritos();
@@ -43,10 +45,38 @@ export class UsuariosComponent implements OnInit {
   loadUsuarios(){
     this.asis.forEach(asistente => {
         this.usuarioService.findByid(asistente.usuario_id).subscribe(user => {
-          this.usuarios = [...this.usuarios, user];
+          this.usuarios[asistente.id] = user;
         });
       }
     )
+  }
+
+  trackByFn(index: number, item: Asistente): number {
+    return item.usuario_id; // o cualquier otra propiedad única del asistente
+  }
+
+  eliminar(id: number) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminarlo!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.asistentesService.delete(id).subscribe(() => {
+          this.asis = this.asis.filter(asistente => asistente.id !== id);
+          delete this.usuarios[id];
+          Swal.fire(
+            'Eliminado!',
+            'El asistente ha sido eliminado.',
+            'success'
+          );
+        });
+      }
+    });
   }
 
 }

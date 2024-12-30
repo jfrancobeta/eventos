@@ -28,22 +28,16 @@
               </tr>
             </thead>
             <tbody>
-              @for (user of usuarios; track $index) {
-
-                <tr>
-                  <td >{{user.nombre}}</td>
-                  <td>{{user.apellido}}</td>
-                  <td>{{user.email}}</td>
-                  <td>
-                    <button class="btn btn-outline-dark btn-sm d-flex align-items-center">
-                      <i class="bi bi-envelope-fill me-2"></i>
-                      Contactar
-                    </button>
-                  </td>
-                </tr>
-              }
-              
-              
+              <tr *ngFor="let asistente of asis; trackBy: trackByFn">
+                <td>{{ usuarios[asistente.id]!.nombre }}</td>
+                <td>{{ usuarios[asistente.id]!.apellido }}</td>
+                <td>{{ usuarios[asistente.id]!.email }}</td>
+                <td>
+                  <button class="btn btn-outline-danger btn-sm d-flex align-items-center" (click)="eliminar(asistente.id)">
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>

@@ -110,7 +110,7 @@ export class EventoComponent implements OnInit {
           next: (eventoCreated) => {
           this.eventos = [... this.eventos, {... eventoCreated}]
           this.miseventos = [... this.miseventos, {... eventoCreated}]
-          this.eventosFiltrados = [... this.miseventos, {... eventoCreated}]
+          this.eventosFiltrados = [... this.eventosFiltrados, {... eventoCreated}]
           Swal.fire({
             title: "Buen Trabajo!",
             text: "Evento Creado",
