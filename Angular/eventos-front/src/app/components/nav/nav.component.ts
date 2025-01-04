@@ -3,6 +3,7 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { authConfig } from '../../auth/auth.config';
 import { DataService } from '../../services/data.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-nav',
@@ -18,31 +19,19 @@ export class NavComponent implements OnInit {
   constructor(
     private data: DataService,
     private router: Router,
-    private oauthService: OAuthService
+    private authService: AuthService
   ){
 
-    this.oauthService.configure(authConfig);
-        this.oauthService.loadDiscoveryDocumentAndTryLogin().then(() => {
-          if (this.oauthService.hasValidAccessToken()) {
-            this.token = this.oauthService.getAccessToken();
-            console.log('Token válido detectado:', this.token);
-            this.data.tokenEvent.emit(this.token)
-          }else{
-            this.router.navigate(['/'])
-          }
-        });
-  
-        // Suscribirse a eventos del OAuthService
-        this.oauthService.events.subscribe((event) => {
-          if (event.type === 'token_received') {
-            this.token = this.oauthService.getAccessToken();
-            console.log('Token recibido:', this.token);
-            
-          }
-        });
     
   }
   ngOnInit(): void {
+    this.authService.getTokenObservable().subscribe(token => {
+      this.token = token;
+      
+    });
+
+
+    
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.url = event.urlAfterRedirects; // Obtener la ruta final después de redirecciones
@@ -54,12 +43,11 @@ export class NavComponent implements OnInit {
 
 
   public login(){
-    this.oauthService.initCodeFlow();
+    this.authService.login();
   }
 
   public logout(){
-    this.oauthService.logOut();
-    this.token = null;
+    this.authService.logout();
     console.log('Sesión cerrada.');
   }
 

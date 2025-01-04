@@ -12,6 +12,7 @@ import { DataService } from '../../services/data.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AsistenteDto } from '../../models/AsistenteDto';
+import { AuthService } from '../../services/auth.service';
 
 declare var bootstrap: any;
 @Component({
@@ -39,22 +40,28 @@ export class EventoComponent implements OnInit {
     private asistenteService: AsistentesService,
     private eventoService: EventosService,
     private datapipe: DatePipe,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ){
       this.evento = new Evento()
   }
   ngOnInit(): void {
     this.minDate = new Date().toISOString().split('T')[0];
-    this.data.tokenEvent.subscribe(token => {
-      this.token = token
-
+    this.authService.getTokenObservable().subscribe(token => {  
+      this.token = token;
       if(this.token != null){
         const payload = JSON.parse(atob(this.token.split('.')[1]))
         this.userId = payload.data
       }
-      this.findEvent()
+      
       this.loadInscritos();
-    })
+    
+      this.findEvent()
+    });
+    
+      
+
+     
 
     
   }

@@ -6,16 +6,20 @@ import { UsuarioFormComponent } from './components/usuario-form/usuario-form.com
 import { NosotrosComponent } from './components/nosotros/nosotros.component';
 import { ContactoComponent } from './components/contacto/contacto.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
+import { authGuard } from './guards/auth.guard';
+import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 
 export const routes: Routes = [
     {
         path: 'home',
-        component: EventoComponent
+        component: EventoComponent,
+        canActivate: [authGuard]
 
     },
     {
         path: 'eventos',
-        component: AsistentesComponent
+        component: AsistentesComponent,
+        canActivate: [authGuard]
     },
     {
         path: '',
@@ -23,11 +27,12 @@ export const routes: Routes = [
     },
     {
         path: 'usuariof',
-        component: UsuarioFormComponent
+        component: UsuarioFormComponent,
+        
     },
     {
         path: 'nosotros',
-        component: NosotrosComponent
+        component: NosotrosComponent 
     },
     {
         path: 'contacto',
@@ -35,7 +40,12 @@ export const routes: Routes = [
     },
     {
         path: 'asistentes',
-        component: UsuariosComponent
+        component: UsuariosComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'forbidden',
+        component: ForbiddenComponent
     }
 
    
