@@ -1,0 +1,71 @@
+<body class="min-vh-100 bg-light">
+   
+  
+    <main class="container py-4">
+      <!-- Filtros y botón de creación -->
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex align-items-center gap-3">
+          <!-- Campo de búsqueda -->
+          <div class="position-relative">
+            <input type="text" 
+            id="search" 
+            class="form-control ps-5" 
+            placeholder="Buscar eventos..."
+            [(ngModel)]="buscar"
+            (input)="filtrar()"
+            >
+            <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+          </div>
+          <!-- Select de estado -->
+          <select id="statusFilter" class="form-select w-auto">
+            <option value="all" selected>Todos</option>
+            <option value="active">Activos</option>
+            <option value="completed">Completados</option>
+            <option value="cancelled">Cancelados</option>
+          </select>
+        </div>
+       
+      </div>
+  
+      <!-- Tabla de eventos -->
+      <div class="table-responsive bg-white shadow-sm rounded">
+        <table class="table table-striped mb-0">
+          <thead class="table-dark">
+            <tr>
+              <th>Nombre del Evento</th>
+              <th>Fecha</th>
+              <th>Ubicación</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="eventTable">
+            @for (evento of eventosFiltrados; track $index) {
+              <tr>
+                <td>{{evento.nombre}}</td>
+                <td>{{formatDate(evento.fecha)}}</td>
+                <td>{{evento.lugar}}</td>
+                <td><span class="badge bg-success">Activo</span></td>
+                <td>
+                  <button class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2">
+                    <i class="bi bi-pencil"></i> Editar
+                  </button>
+                  <button class="btn btn-outline-danger btn-sm d-flex align-items-center gap-2"
+                  (click)="eliminar(evento.id)">
+                    <i class="bi bi-trash"></i> Eliminar
+                  </button>
+                </td>
+              </tr>
+            }
+            
+            
+          </tbody>
+        </table>
+      </div>
+  
+      @if (eventosFiltrados.length == 0) {
+        <p id="noResultsMessage" class="text-center mt-4 text-muted d-none">No se encontraron eventos que coincidan con la búsqueda.</p>
+      }
+    </main>
+  </body>
+  

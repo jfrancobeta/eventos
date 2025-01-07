@@ -1,0 +1,61 @@
+
+<body class="min-vh-100 bg-light">
+    <header class="bg-white shadow">
+      <div class="container py-4 d-flex justify-content-between align-items-center">
+        <a routerLink="/admin" class="text-dark text-decoration-none d-flex align-items-center">
+          <i class="bi bi-arrow-left me-2"></i> Volver al panel
+        </a>
+        <h1 class="fs-4 fw-bold mb-0">Panel de Estadísticas</h1>
+      </div>
+    </header>
+  
+    <main class="container py-5">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fs-5 fw-semibold">Resumen de Estadísticas</h2>
+        <select class="form-select w-auto" [(ngModel)]="selectedTimeRange">
+          <option value="7d" selected>Últimos 7 días</option>
+          <option value="30d">Últimos 30 días</option>
+          <option value="90d">Últimos 90 días</option>
+        </select>
+      </div>
+  
+      <div class="row g-4 mb-5">
+        <div class="col-sm-6 col-lg-3" *ngFor="let stat of stats">
+          <div class="card shadow-sm">
+            <div class="card-body text-center">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="card-title fs-6">{{ stat.title }}</h5>
+                <i [class]="'bi ' + stat.icon + ' text-muted'"></i>
+              </div>
+              <h3 class="fw-bold mb-0">{{ stat.value }}</h3>
+              <small class="text-muted">{{ stat.description }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="card shadow-sm">
+            <div class="card-header">
+              <h5 class="card-title mb-0">Eventos Creados</h5>
+            </div>
+            <div class="card-body">
+              <canvas id="eventChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card shadow-sm">
+            <div class="card-header">
+              <h5 class="card-title mb-0">Registro de Usuarios</h5>
+            </div>
+            <div class="card-body">
+              <canvas id="userChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+  

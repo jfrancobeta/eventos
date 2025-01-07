@@ -95,4 +95,32 @@ public class UsuarioController {
         }
     }    
 
+    @DeleteMapping("/desactivar/{id}")
+    public ResponseEntity<?> desactivar(@PathVariable Long id){
+        Optional<Usuario> usuario = Optional.ofNullable(usuarioService.findById(id));
+        if(usuario.isPresent()){
+            usuario.get().setEnabled(false);
+            usuarioService.save(usuario.get());
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @PutMapping("/activar/{id}")
+    public ResponseEntity<?> activar(@PathVariable Long id) {
+        Optional<Usuario> usuario = Optional.ofNullable(usuarioService.findById(id));
+        if(usuario.isPresent()){
+            usuario.get().setEnabled(true);
+            usuarioService.save(usuario.get());
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
 }

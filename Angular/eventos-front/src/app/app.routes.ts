@@ -8,6 +8,9 @@ import { ContactoComponent } from './components/contacto/contacto.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { authGuard } from './guards/auth.guard';
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
+import { UsuariosAdminComponent } from './components/admin/usuarios-admin/usuarios-admin.component';
+import { EventosAdminComponent } from './components/admin/eventos-admin/eventos-admin.component';
+import { EstadisticasAdminComponent } from './components/admin/estadisticas-admin/estadisticas-admin.component';
 
 export const routes: Routes = [
     {
@@ -46,6 +49,18 @@ export const routes: Routes = [
     {
         path: 'forbidden',
         component: ForbiddenComponent
+    },
+    {
+        path: 'adminuser',
+        component: UsuariosAdminComponent
+    },
+    {
+        path: 'admineventos',
+        component: EventosAdminComponent
+    },
+    {
+        path: 'adminestadisticas',
+        component: EstadisticasAdminComponent
     }
 
    

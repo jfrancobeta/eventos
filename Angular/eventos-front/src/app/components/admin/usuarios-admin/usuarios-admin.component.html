@@ -1,0 +1,97 @@
+
+<main class="container py-5">
+  <div class="mb-4 d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center gap-3">
+      <div class="position-relative">
+        <input
+          type="text"
+          class="form-control ps-5"
+          placeholder="Buscar usuarios..."
+          [(ngModel)]="buscar"
+          (input)="filterUsers()"
+        />
+        <i
+          class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"
+        ></i>
+      </div>
+      <select class="form-select" style="width: 180px" [(ngModel)]="selectedRole" (change)="filterUsers()">
+        <option value="all">Todos los roles</option>
+        <option value="ROLE_USER">Usuario</option>
+        <option value="ROLE_ADMIN">Administrador</option>
+      </select>
+      <select class="form-select" style="width: 180px" [(ngModel)]="selectedStatus" (change)="filterUsers()">
+        <option value="all">Todos los estados</option>
+        <option value="active">Activo</option>
+        <option value="inactive">Inactivo</option>
+      </select>
+    </div>
+    
+  </div>
+
+  <div class="card shadow-sm">
+    <table class="table mb-0">
+      <thead class="table-light">
+        <tr>
+          <th>Nombre</th>
+          <th>User</th>
+          <th>Email</th>
+          <th>Rol</th>
+          <th>Activo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (user of filteredUsers; track $index) {
+
+        <tr>
+          <td class="fw-bold">{{ user.nombre }}</td>
+          <td class="fw-bold">{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+
+          <td>
+            @for (rol of user.roles; track $index) {
+            <span class="badge bg-primary">{{ rol.nombre }}</span>
+            }
+          </td>
+          <td>
+            <span class="badge bg-success">{{ user.enabled }}</span>
+          </td>
+          <td>
+            <button class="btn btn-outline-primary btn-sm me-2">
+              <i class="bi bi-pencil me-1"></i>
+              Editar
+            </button>
+            @if (user.enabled == true) {
+
+            <button
+              class="btn btn-outline-danger btn-sm"
+              *ngIf="user.id !== undefined"
+              (click)="desactivar(user.id)"
+            >
+              <i class="bi bi-x-circle me-1"></i>
+              Desactivar
+            </button>
+            }@else {
+            <button
+              class="btn btn-outline-success btn-sm"
+              *ngIf="user.id !== undefined"
+              (click)="activar(user.id)"
+            >
+              <i class="bi bi-x-circle me-1"></i>
+              Activar
+            </button>
+            }
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  @if (users.length == 0) {
+
+    <p class="text-center mt-4 text-muted">
+      No se encontraron usuarios que coincidan con la búsqueda.
+    </p>
+  }
+</main>
