@@ -86,6 +86,11 @@ public class EventoController {
         }
     }    
 
+
+    @GetMapping("/total")
+    public ResponseEntity<?> totalEventos(){
+        return ResponseEntity.ok(eventoService.findAll().size());
+    }
     
     
 }

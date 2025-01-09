@@ -22,9 +22,8 @@ export const authGuard: CanActivateFn = async (route, state) => {
     router.navigate(['/'])
     return false
   }
-  console.log('Es admin' +  JSON.stringify(authService.getIdentityClaims()));
+
   if(!authService.isAdmin()){
-    
     router.navigate(['/forbidden'])
     return false
   }

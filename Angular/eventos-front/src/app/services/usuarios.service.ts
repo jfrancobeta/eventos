@@ -36,6 +36,10 @@ export class UsuariosService {
      return this.http.put<void>(this.url + 'activar/' + id,null);
    }
 
+   total(): Observable<number>{
+     return this.http.get<number>(this.url + 'total');
+   }
+
    
    
 }

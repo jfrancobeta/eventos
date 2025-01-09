@@ -123,4 +123,9 @@ public class UsuarioController {
         }
     }
 
+    @GetMapping("/total")
+    public ResponseEntity<?> total(){
+        return ResponseEntity.ok(usuarioService.findAll().size());
+    }
+
 }

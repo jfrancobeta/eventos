@@ -13,6 +13,7 @@
             <li class="nav-item">
               <a [routerLink]="'/contacto'" class="nav-link text-black hover-text-gray">Contacto</a>
             </li>
+            
           </ul>
           <!-- Botones a la derecha -->
   
@@ -38,7 +39,18 @@
           <ul class="nav">
             <li class="nav-item"><a  [routerLink]="['/eventos']" class="nav-link text-black">Inscripciones</a></li>
             <li class="nav-item"><button style="cursor: pointer;" (click)="navigateToEventos()" class="nav-link text-black">Eventos</button></li>
-            <li class="nav-item"><a href="/venues" class="nav-link text-black">Lugares</a></li>
+            @if (admin) {
+
+              <li class="nav-item">
+                <a [routerLink]="'/adminuser'" class="nav-link text-black hover-text-gray">Gestion Usuarios</a>
+              </li>
+              <li class="nav-item">
+                <a [routerLink]="'/admineventos'" class="nav-link text-black hover-text-gray">Gestion Eventos</a>
+              </li>
+              <li class="nav-item">
+                <a [routerLink]="'/adminestadisticas'" class="nav-link text-black hover-text-gray">Estadisticas</a>
+              </li>
+            }
             
             <button class="btn btn-dark mx-2" data-bs-toggle="modal" data-bs-target="#createEventModal">Crear Nuevo Evento</button>
   
@@ -58,6 +70,17 @@
           <li class="nav-item"><button  [routerLink]="['/eventos']" class="nav-link">Inscripciones</button></li>
           <li class="nav-item"><a style="cursor: pointer;" (click)="navigateToEventos()" class="nav-link">Eventos</a></li>
           <li class="nav-item"><a href="/venues" class="nav-link">Lugares</a></li>
+          @if (admin) {
+          <li class="nav-item">
+            <a [routerLink]="'/adminuser'" class="nav-link text-black hover-text-gray">Gestion Usuarios</a>
+          </li>
+          <li class="nav-item">
+            <a [routerLink]="'/admineventos'" class="nav-link text-black hover-text-gray">Gestion Eventos</a>
+          </li>
+          <li class="nav-item">
+            <a [routerLink]="'/adminestadisticas'" class="nav-link text-black hover-text-gray">Estadisticas</a>
+          </li>
+        }
           <button class="btn btn-dark my-2" data-bs-toggle="modal" data-bs-target="#createEventModal">Crear Nuevo Evento</button>
            @if (token != null){
   

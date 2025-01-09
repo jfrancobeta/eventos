@@ -56,5 +56,9 @@ export class NavComponent implements OnInit {
       window.location.reload();
     });
   }
+
+  get admin(): boolean {
+    return this.authService.isAdmin();
+  }
  
 }

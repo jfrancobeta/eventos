@@ -11,18 +11,19 @@ import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import { UsuariosAdminComponent } from './components/admin/usuarios-admin/usuarios-admin.component';
 import { EventosAdminComponent } from './components/admin/eventos-admin/eventos-admin.component';
 import { EstadisticasAdminComponent } from './components/admin/estadisticas-admin/estadisticas-admin.component';
+import { userGuard } from './guards/user.guard';
 
 export const routes: Routes = [
     {
         path: 'home',
         component: EventoComponent,
-        canActivate: [authGuard]
+        canActivate: [userGuard]
 
     },
     {
         path: 'eventos',
         component: AsistentesComponent,
-        canActivate: [authGuard]
+        canActivate: [userGuard]
     },
     {
         path: '',
@@ -44,7 +45,7 @@ export const routes: Routes = [
     {
         path: 'asistentes',
         component: UsuariosComponent,
-        canActivate: [authGuard]
+        canActivate: [userGuard]
     },
     {
         path: 'forbidden',
@@ -53,14 +54,19 @@ export const routes: Routes = [
     {
         path: 'adminuser',
         component: UsuariosAdminComponent
+        ,
+        canActivate: [authGuard]
     },
     {
         path: 'admineventos',
         component: EventosAdminComponent
+        ,
+        canActivate: [authGuard]
     },
     {
         path: 'adminestadisticas',
-        component: EstadisticasAdminComponent
+        component: EstadisticasAdminComponent,
+        canActivate: [authGuard]
     }
 
    

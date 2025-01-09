@@ -32,4 +32,8 @@ export class EventosService {
   editar(evento:Evento):Observable<Evento>{
     return this.http.put<Evento>(this.url + "crear/" + evento.id , evento)
   }
+
+  total(): Observable<number>{
+    return this.http.get<number>(this.url + 'total');
+  }
 }

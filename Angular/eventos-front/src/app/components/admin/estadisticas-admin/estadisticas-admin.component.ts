@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Chart, registerables } from 'chart.js';
+import { EventosService } from '../../../services/eventos.service';
+import { UsuariosService } from '../../../services/usuarios.service';
 
 @Component({
   selector: 'app-estadisticas-admin',
@@ -10,19 +12,34 @@ import { Chart, registerables } from 'chart.js';
   templateUrl: './estadisticas-admin.component.html',
 })
 export class EstadisticasAdminComponent implements OnInit {
+  constructor(private usuariosService: UsuariosService, private eventosService: EventosService) {
+
+  }
 
   selectedTimeRange: string = '7d';
 
   stats = [
-    { title: 'Usuarios Totales', value: '2,345', description: '+180 desde el último período', icon: 'bi-people' },
-    { title: 'Eventos Activos', value: '145', description: '+22 desde el último período', icon: 'bi-calendar-event' },
-    { title: 'Ingresos', value: '$12,543', description: '+15% desde el último período', icon: 'bi-currency-dollar' },
-    { title: 'Tasa de Conversión', value: '3.2%', description: '+0.5% desde el último período', icon: 'bi-graph-up' },
+    { title: 'Usuarios Totales', value: '0', description: '', icon: 'bi-people' },
+    { title: 'Eventos Activos', value: '0', description: '', icon: 'bi-calendar-event' },
+    { title: 'Ingresos', value: '$0', description: '', icon: 'bi-currency-dollar' },
+    { title: 'Tasa de Conversión', value: '0%', description: '', icon: 'bi-graph-up' },
   ];
 
   ngOnInit(): void {
     Chart.register(...registerables);
     this.loadCharts();
+    this.loadStats();
+  }
+
+  loadStats() {
+    this.usuariosService.total().subscribe((total) => {
+      console.log('Total de usuarios:', total);
+      this.stats[0].value = total.toString();
+    });
+
+    this.eventosService.total().subscribe(totalEventos => {
+      this.stats[1].value = totalEventos.toString();
+    });
   }
 
   loadCharts() {
