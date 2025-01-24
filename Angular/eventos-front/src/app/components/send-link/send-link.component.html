@@ -1,0 +1,47 @@
+
+  <div class="d-flex flex-column min-vh-100 bg-light justify-content-center align-items-center px-3">
+    <div class="card w-100" style="max-width: 24rem;">
+      <div class="card-header">
+        <div class="mb-3">
+          <a [routerLink]="['/login']" class="text-decoration-none text-secondary small">
+            <i class="bi bi-arrow-left me-2"></i>Volver al inicio de sesión
+          </a>
+        </div>
+        <h5 class="card-title fw-bold">¿Olvidaste tu contraseña?</h5>
+        <p class="card-text text-muted">
+          Ingresa tu dirección de correo electrónico y te enviaremos un enlace para restablecer tu contraseña.
+        </p>
+      </div>
+      <div class="card-body">
+        <!-- Mostrar formulario antes de enviar -->
+        <form id="forgot-password-form" (ngSubmit)="sendLink()">
+          <div class="mb-3">
+            <label for="email" class="form-label">Correo electrónico</label>
+            <input
+              id="email"
+              type="email"
+              class="form-control"
+              name="email"
+              [(ngModel)]="email"
+              placeholder="tu@email.com"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-dark w-100">Enviar enlace de restablecimiento</button>
+        </form>
+        <!-- Mostrar mensaje después de enviar -->
+        @if (message) {
+        <div id="success-message">
+          <p>{{message}}</p>
+        </div>
+        } 
+      </div>
+    
+      <div class="card-footer text-center">
+        <p class="text-muted small">
+          ¿Recordaste tu contraseña?
+          <a [routerLink]="['/login']" routerLinkActive="router-link-active"  class="text-decoration-none">Iniciar sesión</a>
+        </p>
+      </div>
+    </div>
+  </div>

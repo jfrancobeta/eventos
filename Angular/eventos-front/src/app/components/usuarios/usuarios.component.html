@@ -24,14 +24,16 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Apellido</th>
                 <th scope="col">Email</th>
+                
                 <th scope="col">Acciones</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let asistente of asis; trackBy: trackByFn">
-                <td>{{ usuarios[asistente.id]!.nombre }}</td>
-                <td>{{ usuarios[asistente.id]!.apellido }}</td>
-                <td>{{ usuarios[asistente.id]!.email }}</td>
+                <td>{{ usuarios[asistente.id].nombre }}</td>
+                <td>{{ usuarios[asistente.id].apellido }}</td>
+                <td>{{ usuarios[asistente.id].email }}</td>
+                
                 <td>
                   <button class="btn btn-outline-danger btn-sm d-flex align-items-center" (click)="eliminar(asistente.id)">
                     Eliminar

@@ -44,6 +44,16 @@ public class Usuario implements Serializable {
 
 	private Integer intentos;
 
+	private String resetToken;
+
+	public String getResetToken() {
+		return resetToken;
+	}
+
+	public void setResetToken(String resetToken) {
+		this.resetToken = resetToken;
+	}
+
 	public Integer getIntentos() {
 		return intentos;
 	}

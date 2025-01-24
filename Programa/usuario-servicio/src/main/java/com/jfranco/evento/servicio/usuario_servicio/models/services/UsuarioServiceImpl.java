@@ -39,5 +39,15 @@ public class UsuarioServiceImpl implements IUsuarioService {
     public Optional<Usuario> findByUsername(String username) {
         return usuarioRepository.findByUsername(username);
     }
+
+    @Override
+    public Optional<Usuario> findByEmail(String email) {
+        return usuarioRepository.findByEmail(email);
+    }
+
+    @Override
+    public Optional<Usuario> findByResetToken(String resetToken) {
+        return usuarioRepository.findByResetToken(resetToken);
+    }
     
 }

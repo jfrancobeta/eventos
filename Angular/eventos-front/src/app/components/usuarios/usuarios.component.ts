@@ -47,6 +47,7 @@ export class UsuariosComponent implements OnInit {
         this.usuarioService.findByid(asistente.usuario_id).subscribe(user => {
           this.usuarios[asistente.id] = user;
         });
+        console.log(this.usuarios);
       }
     )
   }

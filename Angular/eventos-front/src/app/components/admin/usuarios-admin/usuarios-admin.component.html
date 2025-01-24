@@ -32,6 +32,7 @@
     <table class="table mb-0">
       <thead class="table-light">
         <tr>
+          <th>#</th>
           <th>Nombre</th>
           <th>User</th>
           <th>Email</th>
@@ -41,11 +42,12 @@
         </tr>
       </thead>
       <tbody>
-        @for (user of filteredUsers; track $index) {
+        @for (user of paginatedUsers; track $index) {
 
         <tr>
+          <td class="fw-bold">{{ user.id }}</td>
           <td class="fw-bold">{{ user.nombre }}</td>
-          <td class="fw-bold">{{ user.username }}</td>
+          <td >{{ user.username }}</td>
           <td>{{ user.email }}</td>
 
           <td>
@@ -86,6 +88,12 @@
         }
       </tbody>
     </table>
+  </div>
+
+  <div class="d-flex justify-content-between mt-4">
+    <button class="btn btn-dark" (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+    <span>Página {{currentPage}} de {{totalPages}}</span>
+    <button class="btn btn-dark" (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
   </div>
 
   @if (users.length == 0) {

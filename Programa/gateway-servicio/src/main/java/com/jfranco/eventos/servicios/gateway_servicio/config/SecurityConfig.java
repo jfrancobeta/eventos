@@ -29,6 +29,8 @@ public class SecurityConfig {
         http.authorizeExchange(auth -> auth
             .pathMatchers("/authorized").permitAll()
             .pathMatchers("/api/usuario/crearu").permitAll()
+            .pathMatchers("/api/usuario/forgot-password").permitAll()
+            .pathMatchers("/api/usuario/reset-password").permitAll()
             .pathMatchers("/api/asistentes/crear").hasAnyRole("ADMIN","USER")
             .pathMatchers("/api/usuario/listar/{id}").hasAnyRole("ADMIN","USER")
             .pathMatchers("/api/asistentes/listarid").hasAnyRole("ADMIN","USER")

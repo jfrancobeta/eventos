@@ -18,7 +18,7 @@
             </div>
           </div>
         }@else {
-          @for (evento of eventosFiltrados; track $index) {
+          @for (evento of eventosPaginados; track $index) {
               <div class="col-md-4">
                   <div class="card border-dark event-card">
                     <div class="card-header bg-light text-center fw-bold">Evento</div>
@@ -37,6 +37,11 @@
            }
         }
         
+      </div>
+      <div class="d-flex justify-content-between mt-4">
+        <button class="btn btn-dark" (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+        <span>Página {{currentPage}} de {{totalPages}}</span>
+        <button class="btn btn-dark" (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
       </div>
     </section>
 

@@ -40,6 +40,16 @@ export class UsuariosService {
      return this.http.get<number>(this.url + 'total');
    }
 
+   forgotPassword(email: string): Observable<void>{
+     return this.http.post<void>(this.url + 'forgot-password', email);
+   }
+
+
+   resetPassword(token: string, password: string): Observable<void>{
+    console.log('Token:', token);
+     return this.http.post<void>(this.url + 'reset-password', {token: token, newPassword: password});
+   }
+
    
    
 }

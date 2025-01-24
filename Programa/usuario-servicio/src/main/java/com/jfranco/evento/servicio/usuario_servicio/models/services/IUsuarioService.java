@@ -18,6 +18,10 @@ public interface IUsuarioService {
 
     public Optional<Usuario> findByUsername(String username);
 
+    public Optional<Usuario> findByEmail(String email);
+
+    public Optional<Usuario> findByResetToken(String resetToken);
+
     public void deleteById(Long id);
 
     

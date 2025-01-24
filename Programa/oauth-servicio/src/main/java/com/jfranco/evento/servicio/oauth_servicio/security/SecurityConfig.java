@@ -121,12 +121,16 @@ public class SecurityConfig {
 		http
 			.cors(Customizer.withDefaults())
 			.authorizeHttpRequests((authorize) -> authorize
+				.requestMatchers("/login","/loginForm","/holap").permitAll()
 				.anyRequest().authenticated()
 			)
 			// Form login handles the redirect to the login page from the
 			// authorization server filter chain
 			.csrf(csrf -> csrf.disable())
-			.formLogin(Customizer.withDefaults());
+			.formLogin(formLogin -> formLogin
+				.loginPage("/login")
+				.permitAll()
+			);
 
 		return http.build();
 	}

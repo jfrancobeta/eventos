@@ -31,8 +31,13 @@ export class EventoComponent implements OnInit {
   userId: number | null = null;
   evento!: Evento ;
   eventosFiltrados: Evento[] = [];
+  eventosPaginados: Evento[] = [];
   isLoading: boolean = true;
   inscritos: Asistente[] = [];
+
+  currentPage: number = 1;
+  pageSize: number = 5;
+  totalPages: number = 0;
 
   minDate!: string;
   constructor(private serviceEventos: EventosService,
@@ -181,6 +186,8 @@ export class EventoComponent implements OnInit {
       this.serviceEventos.findAll().subscribe(evento => {
         this.eventos = evento
         this.eventosFiltrados = evento
+        this.totalPages = Math.ceil(this.eventos.length / this.pageSize)
+        this.updatePaginatedEvents();
         this.isLoading = false;
         if(this.eventos.length > 0){
           this.miseventos = this.eventos.filter(evento => evento.usuario == this.userId)
@@ -189,6 +196,12 @@ export class EventoComponent implements OnInit {
         this.isLoading = false;
       })
     }
+  }
+
+  updatePaginatedEvents() {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.eventosPaginados = this.eventosFiltrados.slice(startIndex, endIndex);
   }
 
   eliminar(id:number){
@@ -247,11 +260,13 @@ export class EventoComponent implements OnInit {
 
   buscarEvento(event: any) {
     const query = event.target.value.toLowerCase();
-    if (query) {
-      this.eventosFiltrados = this.eventos.filter(evento => evento.nombre.toLowerCase().includes(query));
-    } else {
-      this.eventosFiltrados = this.eventos; // Restablece eventosFiltrados a todos los eventos si el campo de búsqueda está vacío
-    }
+    this.eventosFiltrados = this.eventos.filter(evento => evento.nombre.toLowerCase().includes(query));
+    this.totalPages = Math.ceil(this.eventosFiltrados.length / this.pageSize);
+    this.currentPage = 1
+    this.updatePaginatedEvents(); 
+    
+    
+    
   }
 
 
@@ -259,6 +274,20 @@ export class EventoComponent implements OnInit {
     this.data.emitirInscrito(id);
     this.router.navigate(['/asistentes']);
     
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePaginatedEvents();
+    }
+  }
+  
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePaginatedEvents();
+    }
   }
 
   

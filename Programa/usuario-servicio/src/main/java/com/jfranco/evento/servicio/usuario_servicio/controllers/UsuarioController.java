@@ -12,11 +12,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
+import com.jfranco.evento.servicio.usuario_servicio.clients.NotificacionClienteFeing;
+import com.jfranco.evento.servicio.usuario_servicio.models.entity.Notificacion;
 import com.jfranco.evento.servicio.usuario_servicio.models.entity.Role;
 import com.jfranco.evento.servicio.usuario_servicio.models.entity.Usuario;
 import com.jfranco.evento.servicio.usuario_servicio.models.services.IUsuarioService;
@@ -29,6 +35,9 @@ public class UsuarioController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private NotificacionClienteFeing notificacionClienteFeing;
     
 
     @GetMapping("/buscar/{username}")
@@ -127,5 +136,46 @@ public class UsuarioController {
     public ResponseEntity<?> total(){
         return ResponseEntity.ok(usuarioService.findAll().size());
     }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@RequestBody String email) {
+        Optional<Usuario> usuario = usuarioService.findByEmail(email);
+        if(usuario.isPresent()){
+            String token = UUID.randomUUID().toString();
+            usuario.get().setResetToken(token);
+            usuarioService.save(usuario.get());
+            String resetLink = "http://localhost:4200/reset-password?token="+token;
+            Notificacion notificacion = new Notificacion();
+            notificacion.setCorreo(email);
+            notificacion.setTitulo("Restablecer contraseña");
+            notificacion.setMensaje("Para restablecer tu contraseña, haz clic en el siguiente enlace: " + resetLink);
+            notificacionClienteFeing.enviarNotificacion(notificacion);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Enlace de restablecimiento de contraseña enviado a tu correo electrónico.");
+            return ResponseEntity.ok(response);
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestBody Map<String, String> payload) {
+        String token = payload.get("token");
+        String newPassword = payload.get("newPassword");
+        System.out.println("token" + token);
+        System.out.println("newPassword" + newPassword);
+        Optional<Usuario> usuarioExistente = usuarioService.findByResetToken(token);
+        if(usuarioExistente.isPresent()){
+            usuarioExistente.get().setPassword(passwordEncoder.encode(newPassword));
+            usuarioExistente.get().setResetToken(null);
+            usuarioService.save(usuarioExistente.get());
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Contraseña restablecida correctamente.");
+            return ResponseEntity.ok(response);
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+    
 
 }
