@@ -12,7 +12,6 @@ import { UsuariosAdminComponent } from './components/admin/usuarios-admin/usuari
 import { EventosAdminComponent } from './components/admin/eventos-admin/eventos-admin.component';
 import { EstadisticasAdminComponent } from './components/admin/estadisticas-admin/estadisticas-admin.component';
 import { userGuard } from './guards/user.guard';
-import { LoginComponent } from './components/login/login.component';
 import { SendLinkComponent } from './components/send-link/send-link.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
@@ -70,10 +69,6 @@ export const routes: Routes = [
         path: 'adminestadisticas',
         component: EstadisticasAdminComponent,
         canActivate: [authGuard]
-    },
-    {
-        path: 'login',
-        component: LoginComponent
     },
     { path: 'send-link', 
         component: SendLinkComponent 

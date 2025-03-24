@@ -183,7 +183,8 @@ export class EventoComponent implements OnInit {
 
   findEvent(){
     if(this.token != null){
-      this.serviceEventos.findAll().subscribe(evento => {
+      this.serviceEventos.estado().subscribe(evento => {
+        console.log(evento)
         this.eventos = evento
         this.eventosFiltrados = evento
         this.totalPages = Math.ceil(this.eventos.length / this.pageSize)

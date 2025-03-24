@@ -14,4 +14,8 @@ public interface IEventoService {
 
     public void deleteById(Long id);
 
+    public void actualizarEstadoEventos();
+
+    public List<Evento> findByEstadoTrue();
+
 }

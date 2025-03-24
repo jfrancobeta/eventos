@@ -2,20 +2,23 @@ import { Component, numberAttribute, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AsistentesService } from '../../services/asistentes.service';
 import { AsistenteDto } from '../../models/AsistenteDto';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-asistentes',
   standalone: true,
   imports: [RouterModule,CommonModule],
+  providers: [DatePipe],
   templateUrl: './asistentes.component.html'
 })
 export class AsistentesComponent implements OnInit{
 
   misAsistencias: AsistenteDto[] = []
 
-  constructor(private asistenteService: AsistentesService){
+  constructor(private asistenteService: AsistentesService,
+    private datapipe: DatePipe
+  ){
 
   }
   ngOnInit(): void {
@@ -56,6 +59,11 @@ export class AsistentesComponent implements OnInit{
   maps(direccion: string){
     const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(direccion)}`;
     window.open(url, '_blank');
+  }
+
+  formatDate(date:Date): string{
+    const dateObj = new Date(date); // Convertir la cadena de fecha a un objeto Date
+    return this.datapipe.transform(dateObj, 'dd/MM/yyyy HH:mm') || ''; // Formato que necesites
   }
 
 

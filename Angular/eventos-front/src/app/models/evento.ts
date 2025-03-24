@@ -7,4 +7,5 @@ export class Evento {
     usuario!: number;
     lugar!: string;
     capacidad!: number;
+    estado!: Boolean;
 }

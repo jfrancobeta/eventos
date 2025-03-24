@@ -36,4 +36,8 @@ export class EventosService {
   total(): Observable<number>{
     return this.http.get<number>(this.url + 'total');
   }
+
+  estado(): Observable<Evento[]>{
+    return this.http.get<Evento[]>(this.url + 'estado');
+  }
 }

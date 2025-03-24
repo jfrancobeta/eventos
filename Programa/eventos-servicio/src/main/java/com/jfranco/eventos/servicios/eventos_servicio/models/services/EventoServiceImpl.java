@@ -1,5 +1,6 @@
 package com.jfranco.eventos.servicios.eventos_servicio.models.services;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,23 @@ public class EventoServiceImpl implements IEventoService {
     @Transactional()
     public void deleteById(Long id) {
         eventoRepository.deleteById(id);
+    }
+
+    @Override
+    public void actualizarEstadoEventos() {
+        List<Evento> eventos = eventoRepository.findAll();
+        Date now = new Date();
+        for (Evento evento : eventos) {
+            if (evento.getFecha().before(now)) {
+                evento.setEstado(false);
+                eventoRepository.save(evento);
+            }
+        }
+    }
+
+    @Override
+    public List<Evento> findByEstadoTrue() {
+        return eventoRepository.findByEstadoTrue();
     }
     
 }

@@ -32,6 +32,10 @@ public class Evento implements Serializable {
 
     private Integer capacidad;
 
+    private Boolean estado = true;
+
+    
+
     
     public Long getId() {
         return id;
@@ -87,6 +91,14 @@ public class Evento implements Serializable {
 
     public void setUsuario(Long usuario) {
         Usuario = usuario;
+    }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
     }
 
     
