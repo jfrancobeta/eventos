@@ -6,8 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jfranco.evento.servicio.usuario_servicio.models.entity.Usuario;
+
 import com.jfranco.evento.servicio.usuario_servicio.models.repository.UsuarioRepository;
+import com.jfranco.eventos.usuario_commons.models.Usuario;
 
 @Service
 public class UsuarioServiceImpl implements IUsuarioService {

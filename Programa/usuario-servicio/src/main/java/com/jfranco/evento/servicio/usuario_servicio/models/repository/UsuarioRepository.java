@@ -4,7 +4,8 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.jfranco.evento.servicio.usuario_servicio.models.entity.Usuario;
+import com.jfranco.eventos.usuario_commons.models.Usuario;
+
 
 
 

@@ -23,9 +23,10 @@ import java.util.UUID;
 
 import com.jfranco.evento.servicio.usuario_servicio.clients.NotificacionClienteFeing;
 import com.jfranco.evento.servicio.usuario_servicio.models.entity.Notificacion;
-import com.jfranco.evento.servicio.usuario_servicio.models.entity.Role;
-import com.jfranco.evento.servicio.usuario_servicio.models.entity.Usuario;
+
 import com.jfranco.evento.servicio.usuario_servicio.models.services.IUsuarioService;
+import com.jfranco.eventos.usuario_commons.models.Role;
+import com.jfranco.eventos.usuario_commons.models.Usuario;
 
 @RestController
 public class UsuarioController {

@@ -5,7 +5,8 @@ package com.jfranco.evento.servicio.usuario_servicio.models.services;
 import java.util.List;
 import java.util.Optional;
 
-import com.jfranco.evento.servicio.usuario_servicio.models.entity.Usuario;
+import com.jfranco.eventos.usuario_commons.models.Usuario;
+
 
 public interface IUsuarioService {
 
