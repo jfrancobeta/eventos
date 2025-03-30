@@ -46,7 +46,7 @@ Antes de ejecutar el proyecto, asegúrate de tener instalados los siguientes req
 
 ### 1️⃣ Clonar el repositorio
 ```bash
-git clone https://github.com/tu-usuario/gestion-eventos.git
+[git clone https://github.com/tu-usuario/gestion-eventos.git](https://github.com/jfrancobeta/eventos.git)
 cd gestion-eventos
 ```
 
