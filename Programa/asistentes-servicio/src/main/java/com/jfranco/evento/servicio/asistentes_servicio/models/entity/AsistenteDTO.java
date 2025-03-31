@@ -2,6 +2,8 @@ package com.jfranco.evento.servicio.asistentes_servicio.models.entity;
 
 import java.util.Date;
 
+import com.jfranco.eventos.evento_commons.models.Evento;
+
 
 public class AsistenteDTO {
     

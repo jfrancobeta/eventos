@@ -9,8 +9,9 @@ import org.springframework.stereotype.Service;
 import com.jfranco.evento.servicio.asistentes_servicio.clients.EventosClienteFeing;
 import com.jfranco.evento.servicio.asistentes_servicio.models.entity.Asistente;
 import com.jfranco.evento.servicio.asistentes_servicio.models.entity.AsistenteDTO;
-import com.jfranco.evento.servicio.asistentes_servicio.models.entity.Evento;
+
 import com.jfranco.evento.servicio.asistentes_servicio.models.repository.AsistenteRepository;
+import com.jfranco.eventos.evento_commons.models.Evento;
 
 @Service
 public class AsistenteServiceImpl implements IAsistenteService {

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jfranco.eventos.servicios.eventos_servicio.models.Evento;
+import com.jfranco.eventos.evento_commons.models.Evento;
 import com.jfranco.eventos.servicios.eventos_servicio.models.repository.EventoRepository;
 
 @Service

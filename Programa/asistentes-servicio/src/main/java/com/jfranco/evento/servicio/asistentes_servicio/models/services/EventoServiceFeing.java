@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jfranco.evento.servicio.asistentes_servicio.clients.EventosClienteFeing;
-import com.jfranco.evento.servicio.asistentes_servicio.models.entity.Evento;
+import com.jfranco.eventos.evento_commons.models.Evento;
 
 @Service
 public class EventoServiceFeing implements IEventoService{

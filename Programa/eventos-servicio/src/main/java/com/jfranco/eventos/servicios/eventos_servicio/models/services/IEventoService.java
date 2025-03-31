@@ -2,7 +2,8 @@ package com.jfranco.eventos.servicios.eventos_servicio.models.services;
 
 import java.util.List;
 
-import com.jfranco.eventos.servicios.eventos_servicio.models.Evento;
+import com.jfranco.eventos.evento_commons.models.Evento;
+
 
 public interface IEventoService {
 

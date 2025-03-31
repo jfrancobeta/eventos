@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jfranco.eventos.servicios.eventos_servicio.clients.UsuarioFeingClient;
-import com.jfranco.eventos.servicios.eventos_servicio.models.Usuario;
+import com.jfranco.eventos.usuario_commons.models.Usuario;
 
 @Service
 public class UsuarioService implements IUsuarioService {

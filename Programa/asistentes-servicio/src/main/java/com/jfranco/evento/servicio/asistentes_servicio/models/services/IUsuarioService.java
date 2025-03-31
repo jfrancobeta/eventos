@@ -1,6 +1,6 @@
 package com.jfranco.evento.servicio.asistentes_servicio.models.services;
 
-import com.jfranco.evento.servicio.asistentes_servicio.models.entity.Usuario;
+import com.jfranco.eventos.usuario_commons.models.Usuario;
 
 public interface IUsuarioService {
     

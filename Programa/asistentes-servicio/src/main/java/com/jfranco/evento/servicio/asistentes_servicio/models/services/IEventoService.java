@@ -1,9 +1,9 @@
 package com.jfranco.evento.servicio.asistentes_servicio.models.services;
 import java.util.List;
 
+import com.jfranco.eventos.evento_commons.models.Evento;
 
 
-import com.jfranco.evento.servicio.asistentes_servicio.models.entity.Evento;
 
 public interface IEventoService {
     

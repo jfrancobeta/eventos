@@ -7,13 +7,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jfranco.evento.servicio.asistentes_servicio.models.entity.Asistente;
-import com.jfranco.evento.servicio.asistentes_servicio.models.entity.Evento;
+
 import com.jfranco.evento.servicio.asistentes_servicio.models.entity.Notificacion;
-import com.jfranco.evento.servicio.asistentes_servicio.models.entity.Usuario;
+
 import com.jfranco.evento.servicio.asistentes_servicio.models.services.IAsistenteService;
 import com.jfranco.evento.servicio.asistentes_servicio.models.services.IEventoService;
 import com.jfranco.evento.servicio.asistentes_servicio.models.services.INotificacionService;
 import com.jfranco.evento.servicio.asistentes_servicio.models.services.IUsuarioService;
+import com.jfranco.eventos.evento_commons.models.Evento;
+import com.jfranco.eventos.usuario_commons.models.Usuario;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +23,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 

@@ -4,7 +4,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.jfranco.evento.servicio.oauth_servicio.models.Usuario;
+import com.jfranco.eventos.usuario_commons.models.Usuario;
+
 
 @FeignClient(name = "usuario-servicio")
 public interface UsuarioFeingClient {

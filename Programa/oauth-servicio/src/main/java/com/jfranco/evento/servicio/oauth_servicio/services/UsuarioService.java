@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.jfranco.evento.servicio.oauth_servicio.clients.UsuarioFeingClient;
-import com.jfranco.evento.servicio.oauth_servicio.models.Usuario;
+import com.jfranco.eventos.usuario_commons.models.Usuario;
 
 @Service
 public class UsuarioService implements IUsuarioService, UserDetailsService{

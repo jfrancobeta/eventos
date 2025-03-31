@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.jfranco.evento.servicio.asistentes_servicio.models.entity.Evento;
+import com.jfranco.eventos.evento_commons.models.Evento;
 
 @FeignClient(name = "eventos-servicio")
 public interface EventosClienteFeing {

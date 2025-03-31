@@ -21,8 +21,9 @@ import java.util.Collections;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import com.jfranco.evento.servicio.oauth_servicio.models.Usuario;
+
 import com.jfranco.evento.servicio.oauth_servicio.services.UsuarioService;
+import com.jfranco.eventos.usuario_commons.models.Usuario;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;

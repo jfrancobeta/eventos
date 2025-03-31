@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
-
-import com.jfranco.eventos.servicios.eventos_servicio.models.Evento;
+import com.jfranco.eventos.evento_commons.models.Evento;
 import com.jfranco.eventos.servicios.eventos_servicio.models.services.IEventoService;
 import com.jfranco.eventos.servicios.eventos_servicio.models.services.IUsuarioService;
 
